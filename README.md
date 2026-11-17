@@ -15,6 +15,7 @@
 * **Degree:** B.Tech. Information Technology
 * **Assigned Scenario:** **Scenario 2 – Student Project and Skill Tracking System**
   *(Assigned Register Numbers: 2, 32, 62, 92, L2)*
+* **Interactive Project Web Application:** [🌐 Live Project Website](https://gokul03gokul003-web.github.io/student-project-and-skill-tracking-system-or-SPSTS-VCET-PBA-/)
 * **Integrated Academic Courses:**
   1. `25ITT33` – Software Engineering
   2. `25ITT32` – Java Programming
@@ -100,6 +101,8 @@ c:\project 1\
 │   └── slf4j-simple-1.7.36.jar         # SLF4J Simple Implementation
 ├── build_and_run.bat                   # 1-Click Windows Batch Script to compile & run Java CLI
 ├── run_python.bat                      # 1-Click Windows Batch Script to run Python EDA
+├── open_website.bat                    # 1-Click Windows Batch Script to launch project website
+├── index.html                          # Complete Interactive Project Web Application (GitHub Pages)
 └── README.md                           # Master Project Documentation
 ```
 
