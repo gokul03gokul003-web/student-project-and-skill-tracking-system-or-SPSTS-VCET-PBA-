@@ -1,0 +1,306 @@
+﻿==========================================================================================
+       VELALAR COLLEGE OF ENGINEERING AND TECHNOLOGY (AUTONOMOUS), ERODE - 638012         
+                       DEPARTMENT OF INFORMATION TECHNOLOGY                               
+                    CLASS: 25IT3A | ACADEMIC YEAR: 2026-27 (ODD)                          
+          PROJECT-BASED ASSESSMENT: STUDENT PROJECT AND SKILL TRACKING SYSTEM             
+                 Student: Gokul . S  |  Register Number: 732925ITR032                     
+==========================================================================================
+
+------------- MAIN MENU -------------
+  1. Student Profile & Registry
+  2. Technical Skills Inventory
+  3. Student Project Registry
+  4. Milestone Progress & Tracking
+  5. Assessment & Rubric Evaluations
+  6. Advanced Stream Analytics & Reports
+  7. Run Asynchronous Audit Worker (Thread)
+  0. Exit System
+-------------------------------------
+Select an option [0 - 7]: 
+--- [1] STUDENT MANAGEMENT ---
+  a. View All Registered Students
+  b. Register New Student
+  c. Search Student Profile by Register Number
+Choose action [a/b/c]: +--------------+--------------+--------+------------------------+----------------------+------------+
+| Reg No       | Student Name | Class  | Department             | Email Address        | Phone      |
++==============+==============+========+========================+======================+============+
+| 732925ITL002 | Vignesh . R  | 25IT3B | Information Technology | vignesh.r@vcet.ac.in | 9842100102 |
+| 732925ITR002 | Aakash . M   | 25IT3A | Information Technology | aakash.m@vcet.ac.in  | 9842100002 |
+| 732925ITR015 | Deepa . V    | 25IT3A | Information Technology | deepa.v@vcet.ac.in   | 9842100015 |
+| 732925ITR032 | Gokul . S    | 25IT3A | Information Technology | gokul.s@vcet.ac.in   | 9842100032 |
+| 732925ITR045 | Harish . K   | 25IT3A | Information Technology | harish.k@vcet.ac.in  | 9842100045 |
+| 732925ITR062 | Kavin . P    | 25IT3A | Information Technology | kavin.p@vcet.ac.in   | 9842100062 |
+| 732925ITR078 | Nithya . B   | 25IT3B | Information Technology | nithya.b@vcet.ac.in  | 9842100078 |
+| 732925ITR085 | Pradeep . N  | 25IT3B | Information Technology | pradeep.n@vcet.ac.in | 9842100085 |
+| 732925ITR092 | Preethi . S  | 25IT3B | Information Technology | preethi.s@vcet.ac.in | 9842100092 |
+| 732925ITR105 | Sneha . T    | 25IT3B | Information Technology | sneha.t@vcet.ac.in   | 9842100105 |
++--------------+--------------+--------+------------------------+----------------------+------------+
+
+------------- MAIN MENU -------------
+  1. Student Profile & Registry
+  2. Technical Skills Inventory
+  3. Student Project Registry
+  4. Milestone Progress & Tracking
+  5. Assessment & Rubric Evaluations
+  6. Advanced Stream Analytics & Reports
+  7. Run Asynchronous Audit Worker (Thread)
+  0. Exit System
+-------------------------------------
+Select an option [0 - 7]: 
+--- [1] STUDENT MANAGEMENT ---
+  a. View All Registered Students
+  b. Register New Student
+  c. Search Student Profile by Register Number
+Choose action [a/b/c]: Enter Register Number to Search: 
+=== STUDENT PROFILE ===
+Register No : 732925ITR032
+Name        : Gokul . S
+Class       : 25IT3A
+Department  : Information Technology
+Email       : gokul.s@vcet.ac.in
+Phone       : 9842100032
+
+Associated Technical Skills (6):
+  - Git & Version Control [Cloud / DevOps] - Advanced (2 yrs, Certified)
+  - Java [Programming Language] - Advanced (3 yrs, Certified)
+  - Pandas & NumPy [AI / ML Tool] - Advanced (2 yrs)
+  - Python [Programming Language] - Advanced (2 yrs, Certified)
+  - SQL / Relational DB [Database] - Advanced (2 yrs, Certified)
+  - Spring Boot [Web Framework] - Intermediate (1 yrs)
+
+------------- MAIN MENU -------------
+  1. Student Profile & Registry
+  2. Technical Skills Inventory
+  3. Student Project Registry
+  4. Milestone Progress & Tracking
+  5. Assessment & Rubric Evaluations
+  6. Advanced Stream Analytics & Reports
+  7. Run Asynchronous Audit Worker (Thread)
+  0. Exit System
+-------------------------------------
+Select an option [0 - 7]: 
+--- [2] TECHNICAL SKILL INVENTORY ---
+  a. View Master Skills Catalog
+  b. Map Technical Skill to Student
+Choose action [a/b]: +----------+-----------------------+----------------------+
+| Skill ID | Skill / Language      | Category             |
++==========+=======================+======================+
+| 10       | Pandas & NumPy        | AI / ML Tool         |
+| 11       | Scikit-Learn          | AI / ML Tool         |
+| 12       | TensorFlow / PyTorch  | AI / ML Tool         |
+| 14       | AWS Cloud Foundations | Cloud / DevOps       |
+| 13       | Docker & Kubernetes   | Cloud / DevOps       |
+| 16       | Git & Version Control | Cloud / DevOps       |
+| 6        | MongoDB / NoSQL       | Database             |
+| 5        | SQL / Relational DB   | Database             |
+| 15       | Flutter               | Mobile Development   |
+| 3        | C++                   | Programming Language |
+| 1        | Java                  | Programming Language |
+| 4        | JavaScript            | Programming Language |
+| 2        | Python                | Programming Language |
+| 9        | Flask / FastAPI       | Web Framework        |
+| 8        | React.js              | Web Framework        |
+| 7        | Spring Boot           | Web Framework        |
++----------+-----------------------+----------------------+
+
+------------- MAIN MENU -------------
+  1. Student Profile & Registry
+  2. Technical Skills Inventory
+  3. Student Project Registry
+  4. Milestone Progress & Tracking
+  5. Assessment & Rubric Evaluations
+  6. Advanced Stream Analytics & Reports
+  7. Run Asynchronous Audit Worker (Thread)
+  0. Exit System
+-------------------------------------
+Select an option [0 - 7]: 
+--- [3] PROJECT REGISTRY ---
+  a. View All Registered Projects
+  b. Register New Student Project
+  c. Filter Projects by Domain
+Choose action [a/b/c]: +-----+---------------+---------------------------------------------------+--------------------------+-------------+---------------------------------------------------+
+| ID  | Student RegNo | Project Title                                     | Domain                   | Status      | Technologies Used                                 |
++=====+===============+===================================================+==========================+=============+===================================================+
+| 101 | 732925ITR032  | Student Project and Skill Tracking System         | Data Science             | Completed   | Java, SQLite, Python, Pandas, Matplotlib, Seaborn |
+| 102 | 732925ITR002  | IoT Smart Agriculture & Soil Irrigation Monitor   | Internet of Things (IoT) | In Progress | C++, ESP32, Python, MQTT, SQLite                  |
+| 103 | 732925ITR062  | Automated Histopathological Cancer Diagnosis      | Machine Learning         | Completed   | Python, TensorFlow, OpenCV, Pandas, Flask         |
+| 104 | 732925ITR092  | Secure E-Commerce Microservices Platform          | Web Development          | In Progress | Java, Spring Boot, React.js, MySQL, Docker        |
+| 105 | 732925ITL002  | Cloud-Native Serverless Log Analyzer              | Cloud Computing          | In Progress | Python, AWS Lambda, Docker, CloudWatch, SQLite    |
+| 106 | 732925ITR015  | Real-time Phishing URL Detection System           | Cyber Security           | Completed   | Python, Scikit-Learn, Flask, SQLite               |
+| 107 | 732925ITR045  | Android Campus Navigation and Event Directory     | Mobile Applications      | In Progress | Flutter, Dart, Firebase, SQLite                   |
+| 108 | 732925ITR078  | Customer Churn Prediction and Risk Analytics      | Data Science             | Completed   | Python, Pandas, Scikit-Learn, Seaborn, SQLite     |
+| 109 | 732925ITR085  | Automated Resume Parsing & Candidate Screening    | Machine Learning         | Delayed     | Python, spaCy, NLTK, Flask, SQLite                |
+| 110 | 732925ITR105  | Blockchain-based Academic Credential Verification | Cyber Security           | In Progress | Solidity, Java, Web3j, React, SQLite              |
++-----+---------------+---------------------------------------------------+--------------------------+-------------+---------------------------------------------------+
+
+------------- MAIN MENU -------------
+  1. Student Profile & Registry
+  2. Technical Skills Inventory
+  3. Student Project Registry
+  4. Milestone Progress & Tracking
+  5. Assessment & Rubric Evaluations
+  6. Advanced Stream Analytics & Reports
+  7. Run Asynchronous Audit Worker (Thread)
+  0. Exit System
+-------------------------------------
+Select an option [0 - 7]: 
+--- [3] PROJECT REGISTRY ---
+  a. View All Registered Projects
+  b. Register New Student Project
+  c. Filter Projects by Domain
+Choose action [a/b/c]: Enter Domain to filter (e.g. Data Science, Machine Learning, Web Development): +-----+---------------+----------------------------------------------+--------------+-----------+---------------------------------------------------+
+| ID  | Student RegNo | Project Title                                | Domain       | Status    | Technologies Used                                 |
++=====+===============+==============================================+==============+===========+===================================================+
+| 101 | 732925ITR032  | Student Project and Skill Tracking System    | Data Science | Completed | Java, SQLite, Python, Pandas, Matplotlib, Seaborn |
+| 108 | 732925ITR078  | Customer Churn Prediction and Risk Analytics | Data Science | Completed | Python, Pandas, Scikit-Learn, Seaborn, SQLite     |
++-----+---------------+----------------------------------------------+--------------+-----------+---------------------------------------------------+
+
+------------- MAIN MENU -------------
+  1. Student Profile & Registry
+  2. Technical Skills Inventory
+  3. Student Project Registry
+  4. Milestone Progress & Tracking
+  5. Assessment & Rubric Evaluations
+  6. Advanced Stream Analytics & Reports
+  7. Run Asynchronous Audit Worker (Thread)
+  0. Exit System
+-------------------------------------
+Select an option [0 - 7]: 
+--- [4] MILESTONE PROGRESS & TRACKING ---
+  a. View Milestones for a Project
+  b. Add Milestone to Project
+  c. Record Deliverable Submission
+  d. View Delayed Milestones Across Department
+Choose action [a/b/c/d]: Enter Project ID: +--------------+------------+--------------------------------------------------+------------+-----------------+----------+--------------------------------------------------+
+| Milestone ID | Project ID | Milestone Name                                   | Due Date   | Submission Date | Status   | Remarks                                          |
++==============+============+==================================================+============+=================+==========+==================================================+
+| 201          | 101        | M1: Problem Analysis & SRS Document              | 2026-09-20 | 2026-09-19      | Approved | Comprehensive IEEE SRS document submitted.       |
+| 202          | 101        | M2: System Architecture & Database Design        | 2026-10-05 | 2026-10-04      | Approved | Normalized BCNF schema and ERD verified.         |
+| 203          | 101        | M3: Java Core Application & DAO Development      | 2026-10-25 | 2026-10-24      | Approved | Clean OOP, JDBC, and Collections implemented.    |
+| 204          | 101        | M4: Python Data Science & Visualization Pipeline | 2026-11-10 | 2026-11-09      | Approved | Pandas EDA and Seaborn visualizations generated. |
+| 205          | 101        | M5: Testing, Documentation & Final Demo          | 2026-11-17 | 2026-11-16      | Approved | All 23 test cases passed with 100% success.      |
++--------------+------------+--------------------------------------------------+------------+-----------------+----------+--------------------------------------------------+
+
+------------- MAIN MENU -------------
+  1. Student Profile & Registry
+  2. Technical Skills Inventory
+  3. Student Project Registry
+  4. Milestone Progress & Tracking
+  5. Assessment & Rubric Evaluations
+  6. Advanced Stream Analytics & Reports
+  7. Run Asynchronous Audit Worker (Thread)
+  0. Exit System
+-------------------------------------
+Select an option [0 - 7]: 
+--- [4] MILESTONE PROGRESS & TRACKING ---
+  a. View Milestones for a Project
+  b. Add Milestone to Project
+  c. Record Deliverable Submission
+  d. View Delayed Milestones Across Department
+Choose action [a/b/c/d]: 
+=== DELAYED / OVERDUE MILESTONES (4) ===
++--------------+------------+---------------------------------------+------------+-----------------+-------------+---------------------------------------------------+
+| Milestone ID | Project ID | Milestone Name                        | Due Date   | Submission Date | Status      | Remarks                                           |
++==============+============+=======================================+============+=================+=============+===================================================+
+| 222          | 109        | M1: NER Entity Extraction Model       | 2026-10-10 | 2026-10-20      | Delayed     | Significant delay in dataset labeling.            |
+| 208          | 102        | M3: Cloud Dashboard & Alert Engine    | 2026-11-05 | 2026-11-12      | Delayed     | Late submission due to sensor calibration delays. |
+| 223          | 109        | M2: Scoring Algorithm & Web Interface | 2026-11-10 | Pending         | Pending     | Incomplete requirements.                          |
+| 215          | 104        | M3: React Frontend & Payment Gateway  | 2026-11-15 | Pending         | In Progress | Frontend components under integration.            |
++--------------+------------+---------------------------------------+------------+-----------------+-------------+---------------------------------------------------+
+
+------------- MAIN MENU -------------
+  1. Student Profile & Registry
+  2. Technical Skills Inventory
+  3. Student Project Registry
+  4. Milestone Progress & Tracking
+  5. Assessment & Rubric Evaluations
+  6. Advanced Stream Analytics & Reports
+  7. Run Asynchronous Audit Worker (Thread)
+  0. Exit System
+-------------------------------------
+Select an option [0 - 7]: 
+--- [5] ASSESSMENT & RUBRICS EVALUATIONS ---
+  a. View All Evaluation Records
+  b. Record Rubric Marks for Project Milestone
+  c. View Top Performing Evaluations (Grade O & A+)
+Choose action [a/b/c]: 
+=== TOP-PERFORMING EVALUATIONS (STREAMS FILTERED) ===
++---------+---------+-------------+-------------+-----------+-----------+-----------+-------------+-------+------------+
+| Eval ID | Proj ID | Survey (20) | Design (20) | Impl (30) | Test (20) | Viva (10) | Total (100) | Grade | Date       |
++=========+=========+=============+=============+===========+===========+===========+=============+=======+============+
+| 303     | 101     | 20.0        | 19.5        | 29.5      | 19.5      | 10.0      | 98.5        | O     | 2026-11-17 |
+| 302     | 101     | 19.5        | 19.0        | 29.0      | 19.0      | 9.5       | 96.0        | O     | 2026-10-28 |
+| 307     | 103     | 19.0        | 18.5        | 28.5      | 18.5      | 9.0       | 93.5        | O     | 2026-11-05 |
+| 301     | 101     | 19.0        | 18.5        | 27.5      | 18.5      | 9.0       | 92.5        | O     | 2026-09-22 |
+| 313     | 108     | 18.5        | 18.5        | 27.5      | 18.5      | 9.5       | 92.5        | O     | 2026-11-08 |
+| 306     | 103     | 18.0        | 18.0        | 27.0      | 17.5      | 9.0       | 89.5        | O     | 2026-09-25 |
+| 311     | 106     | 18.5        | 17.5        | 26.5      | 18.0      | 9.0       | 89.5        | A+    | 2026-11-10 |
+| 312     | 108     | 17.5        | 18.0        | 26.5      | 17.5      | 8.5       | 88.0        | A+    | 2026-09-24 |
+| 310     | 106     | 17.5        | 17.0        | 26.0      | 17.0      | 8.5       | 86.0        | A+    | 2026-09-28 |
+| 309     | 104     | 17.5        | 17.0        | 25.5      | 17.0      | 8.5       | 85.5        | A+    | 2026-10-23 |
+| 308     | 104     | 17.0        | 18.0        | 24.5      | 17.0      | 8.5       | 85.0        | A+    | 2026-10-02 |
++---------+---------+-------------+-------------+-----------+-----------+-----------+-------------+-------+------------+
+
+------------- MAIN MENU -------------
+  1. Student Profile & Registry
+  2. Technical Skills Inventory
+  3. Student Project Registry
+  4. Milestone Progress & Tracking
+  5. Assessment & Rubric Evaluations
+  6. Advanced Stream Analytics & Reports
+  7. Run Asynchronous Audit Worker (Thread)
+  0. Exit System
+-------------------------------------
+Select an option [0 - 7]: 
+--- [6] ADVANCED STREAM ANALYTICS & REPORTS ---
+
+>>> [Report 1] Domain Distribution (Collectors.groupingBy & counting):
+  Data Science                 : 2 projects
+  Internet of Things (IoT)     : 1 projects
+  Cyber Security               : 2 projects
+  Cloud Computing              : 1 projects
+  Mobile Applications          : 1 projects
+  Web Development              : 1 projects
+  Machine Learning             : 2 projects
+
+>>> [Report 2] Overall Cohort Average Rubric Score: 86.32 / 100.0
+
+>>> [Report 3] Filter Students by Skill (e.g. Python / Java):
+Enter skill name to query: Students proficient in 'Python' (Intermediate/Advanced): 7
+  * [732925ITR002] Aakash . M (25IT3A)
+  * [732925ITR015] Deepa . V (25IT3A)
+  * [732925ITR032] Gokul . S (25IT3A)
+  * [732925ITR062] Kavin . P (25IT3A)
+  * [732925ITR078] Nithya . B (25IT3B)
+  * [732925ITR085] Pradeep . N (25IT3B)
+  * [732925ITL002] Vignesh . R (25IT3B)
+
+------------- MAIN MENU -------------
+  1. Student Profile & Registry
+  2. Technical Skills Inventory
+  3. Student Project Registry
+  4. Milestone Progress & Tracking
+  5. Assessment & Rubric Evaluations
+  6. Advanced Stream Analytics & Reports
+  7. Run Asynchronous Audit Worker (Thread)
+  0. Exit System
+-------------------------------------
+Select an option [0 - 7]: 
+--- [7] MULTITHREADED ASYNCHRONOUS AUDIT WORKER ---
+[Main Thread] Worker thread launched concurrently. Main thread continues without blocking!
+[Background Worker Thread: AuditWorkerThread-1 | Priority: 7] Initiated...
+[Background Worker Thread: AuditWorkerThread-1] Audit snapshot saved to: sample_outputs\async_audit_snapshot.txt
+[Main Thread] Background worker execution finished successfully.
+
+------------- MAIN MENU -------------
+  1. Student Profile & Registry
+  2. Technical Skills Inventory
+  3. Student Project Registry
+  4. Milestone Progress & Tracking
+  5. Assessment & Rubric Evaluations
+  6. Advanced Stream Analytics & Reports
+  7. Run Asynchronous Audit Worker (Thread)
+  0. Exit System
+-------------------------------------
+Select an option [0 - 7]: 
+Exiting Student Project and Skill Tracking System. Thank you!

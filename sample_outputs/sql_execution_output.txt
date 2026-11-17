@@ -1,0 +1,75 @@
+================================================================================
+QUERY 1: Student Project Registry with Primary Technology & Status
+================================================================================
+Register No | Student Name | Class | Project ID | Project Title | Domain | Status
+--------------------------------------------------------------------------------
+732925ITL002 | Vignesh . R | 25IT3B | 105 | Cloud-Native Serverless Log Analyzer | Cloud Computing | In Progress
+732925ITR015 | Deepa . V | 25IT3A | 106 | Real-time Phishing URL Detection System | Cyber Security | Completed
+732925ITR105 | Sneha . T | 25IT3B | 110 | Blockchain-based Academic Credential Verification | Cyber Security | In Progress
+732925ITR032 | Gokul . S | 25IT3A | 101 | Student Project and Skill Tracking System | Data Science | Completed
+732925ITR078 | Nithya . B | 25IT3B | 108 | Customer Churn Prediction and Risk Analytics | Data Science | Completed
+732925ITR002 | Aakash . M | 25IT3A | 102 | IoT Smart Agriculture & Soil Irrigation Monitor | Internet of Things (IoT) | In Progress
+732925ITR062 | Kavin . P | 25IT3A | 103 | Automated Histopathological Cancer Diagnosis | Machine Learning | Completed
+732925ITR085 | Pradeep . N | 25IT3B | 109 | Automated Resume Parsing & Candidate Screening | Machine Learning | Delayed
+732925ITR045 | Harish . K | 25IT3A | 107 | Android Campus Navigation and Event Directory | Mobile Applications | In Progress
+732925ITR092 | Preethi . S | 25IT3B | 104 | Secure E-Commerce Microservices Platform | Web Development | In Progress
+
+================================================================================
+QUERY 2: Milestone Progress and Completion Percentage per Project
+================================================================================
+Project ID | Project Title | Total Milestones | Approved Count | Delayed Count | Completion Rate (%)
+--------------------------------------------------------------------------------
+101 | Student Project and Skill Tracking System | 5 | 5 | 0 | 100.0
+102 | IoT Smart Agriculture & Soil Irrigation Monitor | 4 | 2 | 1 | 50.0
+103 | Automated Histopathological Cancer Diagnosis | 3 | 3 | 0 | 100.0
+104 | Secure E-Commerce Microservices Platform | 3 | 2 | 0 | 66.67
+105 | Cloud-Native Serverless Log Analyzer | 0 | 0 | 0 | None
+106 | Real-time Phishing URL Detection System | 3 | 3 | 0 | 100.0
+107 | Android Campus Navigation and Event Directory | 0 | 0 | 0 | None
+108 | Customer Churn Prediction and Risk Analytics | 3 | 3 | 0 | 100.0
+109 | Automated Resume Parsing & Candidate Screening | 2 | 0 | 1 | 0.0
+110 | Blockchain-based Academic Credential Verification | 0 | 0 | 0 | None
+
+================================================================================
+QUERY 3: Delayed Milestones and Turnaround Time Analysis
+================================================================================
+Project ID | Student | Project Title | Milestone | Target Due Date | Actual Submission | Milestone Status
+--------------------------------------------------------------------------------
+109 | Pradeep . N | Automated Resume Parsing & Candidate Screening | M1: NER Entity Extraction Model | 2026-10-10 | 2026-10-20 | Delayed
+102 | Aakash . M | IoT Smart Agriculture & Soil Irrigation Monitor | M3: Cloud Dashboard & Alert Engine | 2026-11-05 | 2026-11-12 | Delayed
+
+================================================================================
+QUERY 4: Comprehensive Rubric Evaluation Breakdown & Grade Assignment
+================================================================================
+Reg No | Student Name | Project Title | Avg Survey | Avg Design | Avg Impl | Avg Test | Avg Viva | Overall Score | Final Grade
+--------------------------------------------------------------------------------
+732925ITR002 | Aakash . M | IoT Smart Agriculture & Soil Irrigation Monitor | 15.75 | 15.5 | 22.75 | 15.0 | 7.75 | 76.75 | A
+732925ITR015 | Deepa . V | Real-time Phishing URL Detection System | 18.0 | 17.25 | 26.25 | 17.5 | 8.75 | 87.75 | A+
+732925ITR032 | Gokul . S | Student Project and Skill Tracking System | 19.5 | 19.0 | 28.67 | 19.0 | 9.5 | 95.67 | O
+732925ITR062 | Kavin . P | Automated Histopathological Cancer Diagnosis | 18.5 | 18.25 | 27.75 | 18.0 | 9.0 | 91.5 | O
+732925ITR078 | Nithya . B | Customer Churn Prediction and Risk Analytics | 18.0 | 18.25 | 27.0 | 18.0 | 9.0 | 90.25 | O
+732925ITR085 | Pradeep . N | Automated Resume Parsing & Candidate Screening | 12.0 | 11.5 | 18.0 | 11.0 | 6.0 | 58.5 | B
+732925ITR092 | Preethi . S | Secure E-Commerce Microservices Platform | 17.25 | 17.5 | 25.0 | 17.0 | 8.5 | 85.25 | A+
+
+================================================================================
+QUERY 5: Technical Skill Inventory across Cohort
+================================================================================
+Category | Skill Name | Student Count | Advanced | Intermediate | Beginner
+--------------------------------------------------------------------------------
+Cloud / DevOps | AWS Cloud Foundations | 1 | 0 | 1 | 0
+Programming Language | C++ | 2 | 0 | 2 | 0
+Cloud / DevOps | Docker & Kubernetes | 1 | 0 | 1 | 0
+Web Framework | Flask / FastAPI | 1 | 0 | 0 | 1
+Mobile Development | Flutter | 1 | 1 | 0 | 0
+Cloud / DevOps | Git & Version Control | 2 | 1 | 1 | 0
+Programming Language | Java | 3 | 2 | 1 | 0
+Programming Language | JavaScript | 3 | 1 | 2 | 0
+Database | MongoDB / NoSQL | 1 | 0 | 1 | 0
+AI / ML Tool | Pandas & NumPy | 3 | 3 | 0 | 0
+Programming Language | Python | 7 | 4 | 3 | 0
+Web Framework | React.js | 1 | 1 | 0 | 0
+Database | SQL / Relational DB | 6 | 2 | 3 | 1
+AI / ML Tool | Scikit-Learn | 2 | 1 | 1 | 0
+Web Framework | Spring Boot | 1 | 0 | 1 | 0
+AI / ML Tool | TensorFlow / PyTorch | 1 | 0 | 1 | 0
+

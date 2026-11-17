@@ -1,0 +1,20 @@
+# Java build artifacts
+bin/
+*.class
+*.jar
+!lib/*.jar
+
+# Python bytecode & virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+
+# IDE / Editor configuration
+.idea/
+.vscode/
+*.swp
+*.iml

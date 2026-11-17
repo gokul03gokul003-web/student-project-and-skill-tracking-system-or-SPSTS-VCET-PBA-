@@ -1,0 +1,6 @@
+# Dependencies for Student Project and Skill Tracking System EDA
+# Course: 25ITC31 - Foundations of Data Science
+pandas>=2.0.0
+numpy>=1.24.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
