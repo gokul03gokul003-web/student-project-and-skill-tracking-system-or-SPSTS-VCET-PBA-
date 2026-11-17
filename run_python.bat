@@ -1,8 +1,8 @@
 @echo off
 echo ==============================================================================
-echo   SPSTS - Python Data Science & Visualization Runner
+echo   SPSTS - Python Data Science and Visualization Runner
 echo   Department of Information Technology - Velalar College of Engg and Tech
-echo   Author: Gokul . S (Reg No: 732925ITR032) | Class: 25IT3A
+echo   Author: Gokul . S (Reg No: 732925ITR032) - Class: 25IT3A
 echo ==============================================================================
 
 set "PYTHON_EXE=%LOCALAPPDATA%\Programs\Python\Python312\python.exe"

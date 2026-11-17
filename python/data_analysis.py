@@ -158,7 +158,7 @@ def generate_visualizations(data):
     plt.figure(figsize=(10, 6))
     tech_counts = df_student_skills['skill_name'].value_counts().head(10)
     
-    ax = sns.barplot(x=tech_counts.values, y=tech_counts.index, palette="viridis", edgecolor="black")
+    ax = sns.barplot(x=tech_counts.values, y=tech_counts.index, hue=tech_counts.index, palette="viridis", legend=False, edgecolor="black")
     plt.title("Top 10 Technical Skills & Technologies Chosen by Students", fontsize=14, weight='bold', pad=15)
     plt.xlabel("Number of Students Possessing Skill", fontsize=12, weight='bold')
     plt.ylabel("Technology / Programming Language", fontsize=12, weight='bold')
@@ -208,7 +208,7 @@ def generate_visualizations(data):
     # =========================================================================
     plt.figure(figsize=(11, 6))
     domain_order = df_projects['domain'].value_counts().index
-    ax = sns.countplot(data=df_projects, y='domain', order=domain_order, palette="mako", edgecolor="black")
+    ax = sns.countplot(data=df_projects, y='domain', order=domain_order, hue='domain', palette="mako", legend=False, edgecolor="black")
     plt.title("Distribution of Student Mini-Projects Across Domains", fontsize=14, weight='bold', pad=15)
     plt.xlabel("Number of Registered Projects", fontsize=12, weight='bold')
     plt.ylabel("Domain / Specialization", fontsize=12, weight='bold')
@@ -242,6 +242,7 @@ def generate_visualizations(data):
     rubric_names = ['Survey\n(20)', 'Design\n(20)', 'Impl\n(30)', 'Testing\n(20)', 'Viva\n(10)']
     
     sns.boxplot(data=df_evaluations[rubric_cols], ax=axes[1], palette="Set2")
+    axes[1].set_xticks(range(len(rubric_names)))
     axes[1].set_xticklabels(rubric_names, fontsize=10, weight='bold')
     axes[1].set_title("Component-Wise Assessment Mark Spread", fontsize=12, weight='bold')
     axes[1].set_ylabel("Marks Awarded", fontsize=11, weight='bold')

@@ -2,9 +2,9 @@
 setlocal enabledelayedexpansion
 
 echo ==============================================================================
-echo   Student Project and Skill Tracking System (SPSTS) - Build & Run Script
+echo   Student Project and Skill Tracking System (SPSTS) - Build and Run Script
 echo   Department of Information Technology - Velalar College of Engg and Tech
-echo   Author: Gokul . S (Reg No: 732925ITR032) | Class: 25IT3A
+echo   Author: Gokul . S (Reg No: 732925ITR032) - Class: 25IT3A
 echo ==============================================================================
 
 rem Check if javac is on system PATH
