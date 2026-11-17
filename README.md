@@ -101,7 +101,8 @@ c:\project 1\
 │   └── slf4j-simple-1.7.36.jar         # SLF4J Simple Implementation
 ├── build_and_run.bat                   # 1-Click Windows Batch Script to compile & run Java CLI
 ├── run_python.bat                      # 1-Click Windows Batch Script to run Python EDA
-├── open_website.bat                    # 1-Click Windows Batch Script to launch project website
+├── run_web_server.bat                  # 1-Click Windows Batch Script to start local web server (http://localhost:8080)
+├── open_website.bat                    # 1-Click Windows Batch Script to launch project website directly
 ├── index.html                          # Complete Interactive Project Web Application (GitHub Pages)
 └── README.md                           # Master Project Documentation
 ```
@@ -239,6 +240,34 @@ To run analytical SQL queries:
 sqlite3 database/student_tracking.db < database/queries.sql
 ```
 *(A MySQL compatible version is also available at `database/mysql_schema.sql` for XAMPP / MySQL Workbench environments).*
+
+---
+
+### 7.4 Running the Web Application Dashboard
+
+#### Option A: 1-Click Local HTTP Web Server (Recommended)
+Double-click:
+```cmd
+run_web_server.bat
+```
+This launches a local HTTP server at `http://localhost:8080` and opens the dashboard in your default browser.
+
+#### Option B: Terminal Command (PowerShell / Command Prompt)
+```powershell
+# Directly open the website in your browser
+Start-Process index.html
+
+# OR run using Python's built-in web server
+python -m http.server 8080
+```
+Then navigate to: `http://localhost:8080`
+
+#### Option C: 1-Click Direct File Open
+Double-click `open_website.bat` or double-click `index.html` to open directly in Chrome/Edge/Firefox.
+
+#### Option D: Live GitHub Pages URL
+The web application is also hosted directly on GitHub Pages:
+🔗 `https://gokul03gokul003-web.github.io/student-project-and-skill-tracking-system-or-SPSTS-VCET-PBA-/`
 
 ---
 
