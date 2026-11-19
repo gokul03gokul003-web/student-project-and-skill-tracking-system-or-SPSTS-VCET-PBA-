@@ -99,11 +99,12 @@ c:\project 1\
 │   ├── sqlite-jdbc-3.45.1.0.jar        # SQLite JDBC Driver
 │   ├── slf4j-api-1.7.36.jar            # SLF4J API Logging interface
 │   └── slf4j-simple-1.7.36.jar         # SLF4J Simple Implementation
+├── run.ps1                             # Universal PowerShell Runner (Menu: Java, Python, Web, Verification)
 ├── build_and_run.bat                   # 1-Click Windows Batch Script to compile & run Java CLI
 ├── run_python.bat                      # 1-Click Windows Batch Script to run Python EDA
 ├── run_web_server.bat                  # 1-Click Windows Batch Script to start local web server (http://localhost:8080)
 ├── open_website.bat                    # 1-Click Windows Batch Script to launch project website directly
-├── index.html                          # Complete Interactive Project Web Application (GitHub Pages)
+├── index.html                          # Complete Interactive Project Web Application (Live Chart.js + Student Registration)
 └── README.md                           # Master Project Documentation
 ```
 
@@ -182,12 +183,20 @@ The Python analytics pipeline processed the relational dataset and produced 6 pu
 
 ### 7.1 Running the Java Application
 
-#### Option A: 1-Click Batch Execution (Windows)
-Simply double-click:
-```cmd
-build_and_run.bat
+#### Option A: Universal PowerShell Runner (Recommended for PowerShell users)
+In Windows PowerShell:
+```powershell
+.\run.ps1
 ```
-This automatically locates your JDK, compiles all packages into `bin/`, includes the SQLite JDBC driver from `lib/`, and launches the interactive CLI.
+*(Select Option `2` to run Java CLI, `1` for Web Dashboard, `3` for Python EDA, or `4` for 100% Verification Audit).*
+
+#### Option B: 1-Click Batch Execution (Windows)
+Simply double-click `build_and_run.bat` or run in PowerShell:
+```powershell
+.\build_and_run.bat
+```
+*(Note: Windows PowerShell requires the leading `.\` when running commands in the current directory).*
+
 
 #### Option B: Manual Command-Line Compilation & Execution
 ```bash

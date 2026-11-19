@@ -8,6 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js CDN for Live Interactive Visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -61,11 +63,17 @@
             </div>
 
             <!-- Student Author Badge & Controls -->
-            <div class="flex items-center space-x-3 sm:space-x-4">
+            <div class="flex items-center space-x-2 sm:space-x-3">
                 <div class="hidden sm:flex flex-col text-right">
                     <span class="text-xs font-bold text-slate-900 dark:text-slate-100">Gokul . S</span>
                     <span class="text-[11px] font-mono text-blue-600 dark:text-blue-400">Reg: 732925ITR032 • 25IT3A</span>
                 </div>
+                <!-- Interactive Add Student & Project Button -->
+                <button onclick="openAddModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-sm transition">
+                    <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
+                    <span class="hidden sm:inline">Add Student & Project</span>
+                    <span class="sm:hidden">+ Add</span>
+                </button>
                 <button id="themeToggle" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition" title="Toggle Theme">
                     <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
                     <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
@@ -148,12 +156,15 @@
                     </div>
 
                     <!-- Action Buttons -->
-                    <div class="flex flex-col gap-2.5 w-full md:w-auto shrink-0">
+                    <div class="flex flex-col sm:flex-row md:flex-col gap-2.5 w-full md:w-auto shrink-0">
+                        <button onclick="openAddModal()" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg transition">
+                            <i data-lucide="user-plus" class="w-4 h-4"></i> Add Student & Project
+                        </button>
                         <button onclick="switchTab('scenario2')" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg transition">
                             <i data-lucide="file-check-2" class="w-4 h-4"></i> View Scenario 2 PDF Spec
                         </button>
                         <button onclick="switchTab('calculator')" class="px-4 py-2.5 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg transition">
-                            <i data-lucide="calculator" class="w-4 h-4"></i> Launch Rubric Calculator
+                            <i data-lucide="calculator" class="w-4 h-4"></i> Rubric Calculator
                         </button>
                     </div>
                 </div>
@@ -168,7 +179,7 @@
                             <i data-lucide="users" class="w-4 h-4"></i>
                         </div>
                     </div>
-                    <div class="text-2xl font-bold mt-2">10</div>
+                    <div id="kpi-students-count" class="text-2xl font-bold mt-2">10</div>
                     <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">5 Assigned for Scenario 2</p>
                 </div>
 
@@ -179,8 +190,8 @@
                             <i data-lucide="folder-check" class="w-4 h-4"></i>
                         </div>
                     </div>
-                    <div class="text-2xl font-bold mt-2">10</div>
-                    <p class="text-[11px] text-emerald-600 dark:text-emerald-400 mt-1">40% Completed • 50% Active</p>
+                    <div id="kpi-projects-count" class="text-2xl font-bold mt-2">10</div>
+                    <p id="kpi-projects-status" class="text-[11px] text-emerald-600 dark:text-emerald-400 mt-1">40% Completed • 50% Active</p>
                 </div>
 
                 <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
@@ -190,7 +201,7 @@
                             <i data-lucide="cpu" class="w-4 h-4"></i>
                         </div>
                     </div>
-                    <div class="text-2xl font-bold mt-2">16</div>
+                    <div id="kpi-skills-count" class="text-2xl font-bold mt-2">16</div>
                     <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">36 Verified Mappings</p>
                 </div>
 
@@ -613,22 +624,33 @@
         <section id="view-students" class="tab-content hidden space-y-6">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
-                    <h3 class="text-xl font-bold">Student Cohort & Skill Matrix</h3>
+                    <h3 class="text-xl font-bold">Student Cohort & Technical Skill Matrix</h3>
                     <p class="text-xs text-slate-500 dark:text-slate-400">Class 25IT3A & 25IT3B — Student mini-project participants and technical proficiencies</p>
                 </div>
-                <div class="w-full sm:w-72 relative">
-                    <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
-                    <input type="text" id="studentSearch" onkeyup="filterStudents()" placeholder="Search student name, reg no, skill..." class="w-full pl-9 pr-3 py-2 text-xs rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <div class="flex items-center gap-2 w-full sm:w-auto">
+                    <button onclick="openAddModal()" class="px-3.5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs flex items-center gap-1.5 shadow-sm transition whitespace-nowrap">
+                        <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
+                        <span>+ Add Student & Skills</span>
+                    </button>
+                    <div class="w-full sm:w-64 relative">
+                        <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
+                        <input type="text" id="studentSearch" onkeyup="filterStudents()" placeholder="Search name, reg no, skill..." class="w-full pl-9 pr-3 py-2 text-xs rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
                 </div>
             </div>
 
-            <!-- Quick Filter Buttons -->
-            <div class="flex items-center gap-2">
-                <button onclick="filterCohort('all')" id="cohort-all" class="cohort-filter-btn px-3 py-1.5 rounded-lg bg-blue-600 text-white font-semibold text-xs transition">
-                    All Students (10)
-                </button>
-                <button onclick="filterCohort('scenario2')" id="cohort-scenario2" class="cohort-filter-btn px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs hover:bg-slate-200 dark:hover:bg-slate-600 transition flex items-center gap-1.5">
-                    <i data-lucide="award" class="w-3.5 h-3.5 text-indigo-500"></i> Scenario 2 Team: Reg 2, 32, 62, 92, L2 (5)
+            <!-- Quick Filter Buttons & Cohort Actions -->
+            <div class="flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-2">
+                    <button onclick="filterCohort('all')" id="cohort-all" class="cohort-filter-btn px-3 py-1.5 rounded-lg bg-blue-600 text-white font-semibold text-xs transition">
+                        All Students (<span id="count-all-students">10</span>)
+                    </button>
+                    <button onclick="filterCohort('scenario2')" id="cohort-scenario2" class="cohort-filter-btn px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs hover:bg-slate-200 dark:hover:bg-slate-600 transition flex items-center gap-1.5">
+                        <i data-lucide="award" class="w-3.5 h-3.5 text-indigo-500"></i> Scenario 2 Team: Reg 2, 32, 62, 92, L2 (5)
+                    </button>
+                </div>
+                <button onclick="resetStudentData()" title="Reset to default 10 assigned students" class="text-xs text-slate-500 hover:text-rose-600 dark:text-slate-400 dark:hover:text-rose-400 flex items-center gap-1.5 font-medium transition">
+                    <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Reset Default Cohort
                 </button>
             </div>
 
@@ -646,192 +668,8 @@
                                 <th class="p-3.5">Status</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-slate-200 dark:divide-slate-700 font-medium">
-                            <!-- Gokul . S (Featured - Reg 32) -->
-                            <tr data-scenario="2" class="bg-blue-50/50 dark:bg-blue-950/20 hover:bg-blue-100/40 dark:hover:bg-blue-950/40 transition">
-                                <td class="p-3.5 font-mono font-bold text-blue-600 dark:text-blue-400">
-                                    732925ITR032
-                                    <span class="block text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold">PDF Reg #32</span>
-                                </td>
-                                <td class="p-3.5 font-bold">
-                                    Gokul . S
-                                    <span class="ml-1 text-[10px] px-1.5 py-0.5 rounded bg-blue-600 text-white font-semibold">Author</span>
-                                </td>
-                                <td class="p-3.5">25IT3A</td>
-                                <td class="p-3.5 text-slate-500 dark:text-slate-400 font-mono">gokul.s@vcet.ac.in</td>
-                                <td class="p-3.5">
-                                    <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 font-semibold text-[11px]">Java (Adv)</span>
-                                        <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 font-semibold text-[11px]">Python (Adv)</span>
-                                        <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 font-semibold text-[11px]">SQL (Adv)</span>
-                                        <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950/80 text-blue-700 dark:text-blue-300 text-[11px]">Pandas & NumPy</span>
-                                        <span class="px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-950/80 text-amber-700 dark:text-amber-300 text-[11px]">Spring Boot</span>
-                                        <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 text-[11px]">Git (Cert)</span>
-                                    </div>
-                                </td>
-                                <td class="p-3.5">
-                                    <span class="px-2 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold">Project Completed</span>
-                                </td>
-                            </tr>
-
-                            <!-- Aakash . M (Reg 2) -->
-                            <tr data-scenario="2" class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
-                                <td class="p-3.5 font-mono font-semibold">
-                                    732925ITR002
-                                    <span class="block text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold">PDF Reg #2</span>
-                                </td>
-                                <td class="p-3.5 font-semibold">Aakash . M</td>
-                                <td class="p-3.5">25IT3A</td>
-                                <td class="p-3.5 text-slate-500 dark:text-slate-400 font-mono">aakash.m@vcet.ac.in</td>
-                                <td class="p-3.5">
-                                    <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[11px]">C++ (Int)</span>
-                                        <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[11px]">Python (Int)</span>
-                                        <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-[11px]">SQL (Beg)</span>
-                                        <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-[11px]">Git</span>
-                                    </div>
-                                </td>
-                                <td class="p-3.5"><span class="px-2 py-1 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[10px] font-bold">In Progress</span></td>
-                            </tr>
-
-                            <!-- Kavin . P (Reg 62) -->
-                            <tr data-scenario="2" class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
-                                <td class="p-3.5 font-mono font-semibold">
-                                    732925ITR062
-                                    <span class="block text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold">PDF Reg #62</span>
-                                </td>
-                                <td class="p-3.5 font-semibold">Kavin . P</td>
-                                <td class="p-3.5">25IT3A</td>
-                                <td class="p-3.5 text-slate-500 dark:text-slate-400 font-mono">kavin.p@vcet.ac.in</td>
-                                <td class="p-3.5">
-                                    <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-semibold text-[11px]">Python (Adv)</span>
-                                        <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-semibold text-[11px]">Pandas (Adv)</span>
-                                        <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-semibold text-[11px]">Scikit-Learn</span>
-                                        <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[11px]">TensorFlow</span>
-                                    </div>
-                                </td>
-                                <td class="p-3.5"><span class="px-2 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold">Project Completed</span></td>
-                            </tr>
-
-                            <!-- Preethi . S (Reg 92) -->
-                            <tr data-scenario="2" class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
-                                <td class="p-3.5 font-mono font-semibold">
-                                    732925ITR092
-                                    <span class="block text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold">PDF Reg #92</span>
-                                </td>
-                                <td class="p-3.5 font-semibold">Preethi . S</td>
-                                <td class="p-3.5">25IT3B</td>
-                                <td class="p-3.5 text-slate-500 dark:text-slate-400 font-mono">preethi.s@vcet.ac.in</td>
-                                <td class="p-3.5">
-                                    <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-semibold text-[11px]">Java (Adv)</span>
-                                        <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-semibold text-[11px]">JavaScript</span>
-                                        <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[11px]">React.js</span>
-                                        <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[11px]">SQL</span>
-                                    </div>
-                                </td>
-                                <td class="p-3.5"><span class="px-2 py-1 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[10px] font-bold">In Progress</span></td>
-                            </tr>
-
-                            <!-- Vignesh . R (Reg L2) -->
-                            <tr data-scenario="2" class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
-                                <td class="p-3.5 font-mono font-semibold">
-                                    732925ITL002
-                                    <span class="block text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold">PDF Reg #L2</span>
-                                </td>
-                                <td class="p-3.5 font-semibold">Vignesh . R</td>
-                                <td class="p-3.5">25IT3B</td>
-                                <td class="p-3.5 text-slate-500 dark:text-slate-400 font-mono">vignesh.r@vcet.ac.in</td>
-                                <td class="p-3.5">
-                                    <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[11px]">Python (Int)</span>
-                                        <span class="px-2 py-0.5 rounded bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 text-[11px]">Docker (Cert)</span>
-                                        <span class="px-2 py-0.5 rounded bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 text-[11px]">AWS Cloud</span>
-                                    </div>
-                                </td>
-                                <td class="p-3.5"><span class="px-2 py-1 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[10px] font-bold">In Progress</span></td>
-                            </tr>
-
-                            <!-- Deepa . V -->
-                            <tr data-scenario="other" class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
-                                <td class="p-3.5 font-mono font-semibold">732925ITR015</td>
-                                <td class="p-3.5 font-semibold">Deepa . V</td>
-                                <td class="p-3.5">25IT3A</td>
-                                <td class="p-3.5 text-slate-500 dark:text-slate-400 font-mono">deepa.v@vcet.ac.in</td>
-                                <td class="p-3.5">
-                                    <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-semibold text-[11px]">Python (Adv)</span>
-                                        <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[11px]">C++</span>
-                                        <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[11px]">SQL</span>
-                                    </div>
-                                </td>
-                                <td class="p-3.5"><span class="px-2 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold">Project Completed</span></td>
-                            </tr>
-
-                            <!-- Harish . K -->
-                            <tr data-scenario="other" class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
-                                <td class="p-3.5 font-mono font-semibold">732925ITR045</td>
-                                <td class="p-3.5 font-semibold">Harish . K</td>
-                                <td class="p-3.5">25IT3A</td>
-                                <td class="p-3.5 text-slate-500 dark:text-slate-400 font-mono">harish.k@vcet.ac.in</td>
-                                <td class="p-3.5">
-                                    <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-semibold text-[11px]">Flutter (Adv)</span>
-                                        <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[11px]">JavaScript</span>
-                                        <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[11px]">MongoDB</span>
-                                    </div>
-                                </td>
-                                <td class="p-3.5"><span class="px-2 py-1 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[10px] font-bold">In Progress</span></td>
-                            </tr>
-
-                            <!-- Nithya . B -->
-                            <tr data-scenario="other" class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
-                                <td class="p-3.5 font-mono font-semibold">732925ITR078</td>
-                                <td class="p-3.5 font-semibold">Nithya . B</td>
-                                <td class="p-3.5">25IT3B</td>
-                                <td class="p-3.5 text-slate-500 dark:text-slate-400 font-mono">nithya.b@vcet.ac.in</td>
-                                <td class="p-3.5">
-                                    <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-semibold text-[11px]">Python (Adv)</span>
-                                        <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-semibold text-[11px]">Pandas (Adv)</span>
-                                        <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-semibold text-[11px]">SQL (Adv)</span>
-                                    </div>
-                                </td>
-                                <td class="p-3.5"><span class="px-2 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold">Project Completed</span></td>
-                            </tr>
-
-                            <!-- Pradeep . N -->
-                            <tr data-scenario="other" class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
-                                <td class="p-3.5 font-mono font-semibold">732925ITR085</td>
-                                <td class="p-3.5 font-semibold">Pradeep . N</td>
-                                <td class="p-3.5">25IT3B</td>
-                                <td class="p-3.5 text-slate-500 dark:text-slate-400 font-mono">pradeep.n@vcet.ac.in</td>
-                                <td class="p-3.5">
-                                    <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[11px]">Python (Int)</span>
-                                        <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[11px]">Scikit-Learn</span>
-                                        <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-[11px]">Flask</span>
-                                    </div>
-                                </td>
-                                <td class="p-3.5"><span class="px-2 py-1 rounded-full bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 text-[10px] font-bold">Delayed</span></td>
-                            </tr>
-
-                            <!-- Sneha . T -->
-                            <tr data-scenario="other" class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
-                                <td class="p-3.5 font-mono font-semibold">732925ITR105</td>
-                                <td class="p-3.5 font-semibold">Sneha . T</td>
-                                <td class="p-3.5">25IT3B</td>
-                                <td class="p-3.5 text-slate-500 dark:text-slate-400 font-mono">sneha.t@vcet.ac.in</td>
-                                <td class="p-3.5">
-                                    <div class="flex flex-wrap gap-1">
-                                        <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[11px]">Java (Int)</span>
-                                        <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[11px]">JavaScript</span>
-                                        <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[11px]">SQL</span>
-                                    </div>
-                                </td>
-                                <td class="p-3.5"><span class="px-2 py-1 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[10px] font-bold">In Progress</span></td>
-                            </tr>
+                        <tbody id="studentsTableBody" class="divide-y divide-slate-200 dark:divide-slate-700 font-medium">
+                            <!-- Hydrated dynamically by JavaScript from student records -->
                         </tbody>
                     </table>
                 </div>
@@ -842,12 +680,17 @@
         <!-- TAB 4: PROJECT REGISTRY -->
         <!-- =============================================================== -->
         <section id="view-projects" class="tab-content hidden space-y-6">
-            <div>
-                <h3 class="text-xl font-bold">Student Mini-Projects Registry</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400">Class 25IT3A & 25IT3B — Titles, technical domains, tech stacks, and real-time status</p>
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                    <h3 class="text-xl font-bold">Student Mini-Projects Registry</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Class 25IT3A & 25IT3B — Titles, technical domains, tech stacks, and real-time status</p>
+                </div>
+                <button onclick="openAddModal()" class="px-3.5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs flex items-center gap-1.5 shadow-sm transition whitespace-nowrap">
+                    <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> + Register New Project
+                </button>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="projectsContainer">
                 <!-- Project 101: Gokul . S -->
                 <div class="p-5 rounded-xl bg-white dark:bg-slate-800 border-2 border-blue-500 shadow-sm relative">
                     <div class="flex items-center justify-between">
@@ -1151,99 +994,173 @@
         <!-- TAB 7: DATA SCIENCE EDA VISUALIZATIONS -->
         <!-- =============================================================== -->
         <section id="view-visualizations" class="tab-content hidden space-y-6">
-            <div>
-                <h3 class="text-xl font-bold">Python Data Science & EDA Visualizations Gallery</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400">Generated by <code class="bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded text-[11px]">python/data_analysis.py</code> using Pandas, NumPy, Matplotlib, and Seaborn (Course 25ITC31)</p>
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                    <h3 class="text-xl font-bold">Live Data Science & Statistical Visualizations</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">
+                        Interactive HTML5 Canvas charts rendered with <code class="bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 px-1.5 py-0.5 rounded text-[11px] font-mono">Chart.js</code> and backed by <code class="bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded text-[11px] font-mono">python/data_analysis.py</code> (Course 25ITC31)
+                    </p>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                    <span class="px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-semibold flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Live Interactive Visuals Active
+                    </span>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Chart 1 -->
-                <div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm">
+                <!-- Chart 1: Project Completion Rate -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col justify-between">
                     <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
-                        <h4 class="font-bold text-xs uppercase tracking-wider text-slate-700 dark:text-slate-200">1. Project Completion Status Rate</h4>
-                        <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[10px] font-mono">Donut Chart</span>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="pie-chart" class="w-4 h-4 text-emerald-500"></i>
+                            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-700 dark:text-slate-200">1. Project Completion Status Rate</h4>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <button onclick="toggleChartVisual('1', 'canvas')" id="btn-chart-1-canvas" class="text-[10px] px-2 py-0.5 rounded font-bold bg-blue-600 text-white shadow-sm transition">Live Chart</button>
+                            <button onclick="toggleChartVisual('1', 'png')" id="btn-chart-1-png" class="text-[10px] px-2 py-0.5 rounded font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition">Python PNG</button>
+                        </div>
                     </div>
-                    <div class="p-3 bg-slate-50 dark:bg-slate-900/50 flex items-center justify-center">
-                        <img src="visualizations/project_completion_rate.png" alt="Project Completion Rate" class="rounded-lg max-h-80 object-contain hover:scale-105 transition duration-300 cursor-pointer" onclick="window.open(this.src)">
+                    <div class="p-4 bg-slate-50/60 dark:bg-slate-900/40 flex items-center justify-center min-h-[300px]">
+                        <div id="chart-wrap-1" class="w-full max-w-xs h-64 flex items-center justify-center">
+                            <canvas id="chartProjectStatus"></canvas>
+                        </div>
+                        <div id="png-wrap-1" class="w-full hidden items-center justify-center">
+                            <img src="visualizations/project_completion_rate.png" alt="Project Completion Rate" class="rounded-lg max-h-72 object-contain hover:scale-105 transition duration-300 cursor-pointer" onclick="window.open(this.src)">
+                        </div>
                     </div>
                     <div class="p-3.5 text-xs text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border-t border-slate-100 dark:border-slate-700">
-                        Visualizes 40% completed projects, 50% active in-progress initiatives, and 10% flagged with milestone delays.
+                        Interactive Donut chart: 40% Completed, 50% In Progress, 10% Delayed. Hover on slices to inspect real-time project metrics.
                     </div>
                 </div>
 
-                <!-- Chart 2 -->
-                <div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm">
+                <!-- Chart 2: Top 10 Popular Technical Skills -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col justify-between">
                     <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
-                        <h4 class="font-bold text-xs uppercase tracking-wider text-slate-700 dark:text-slate-200">2. Top 10 Popular Technical Skills</h4>
-                        <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-[10px] font-mono">Horizontal Bar</span>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="bar-chart-2" class="w-4 h-4 text-blue-500"></i>
+                            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-700 dark:text-slate-200">2. Top 10 Popular Technical Skills</h4>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <button onclick="toggleChartVisual('2', 'canvas')" id="btn-chart-2-canvas" class="text-[10px] px-2 py-0.5 rounded font-bold bg-blue-600 text-white shadow-sm transition">Live Chart</button>
+                            <button onclick="toggleChartVisual('2', 'png')" id="btn-chart-2-png" class="text-[10px] px-2 py-0.5 rounded font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition">Python PNG</button>
+                        </div>
                     </div>
-                    <div class="p-3 bg-slate-50 dark:bg-slate-900/50 flex items-center justify-center">
-                        <img src="visualizations/popular_technologies.png" alt="Popular Technologies" class="rounded-lg max-h-80 object-contain hover:scale-105 transition duration-300 cursor-pointer" onclick="window.open(this.src)">
+                    <div class="p-4 bg-slate-50/60 dark:bg-slate-900/40 flex items-center justify-center min-h-[300px]">
+                        <div id="chart-wrap-2" class="w-full h-64 flex items-center justify-center">
+                            <canvas id="chartPopularSkills"></canvas>
+                        </div>
+                        <div id="png-wrap-2" class="w-full hidden items-center justify-center">
+                            <img src="visualizations/popular_technologies.png" alt="Popular Technologies" class="rounded-lg max-h-72 object-contain hover:scale-105 transition duration-300 cursor-pointer" onclick="window.open(this.src)">
+                        </div>
                     </div>
                     <div class="p-3.5 text-xs text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border-t border-slate-100 dark:border-slate-700">
-                        Python (70%) and SQL (60%) dominate as the primary technical competencies across the cohort.
+                        Interactive Horizontal Bar: Python (70%) and SQL (60%) dominate cohort competencies, followed by Java, Pandas, and Git.
                     </div>
                 </div>
 
-                <!-- Chart 3 -->
-                <div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm">
+                <!-- Chart 3: Skill Proficiency Level Breakdown -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col justify-between">
                     <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
-                        <h4 class="font-bold text-xs uppercase tracking-wider text-slate-700 dark:text-slate-200">3. Skill Proficiency Distribution</h4>
-                        <span class="px-2 py-0.5 rounded bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 text-[10px] font-mono">Grouped Bar</span>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="layers" class="w-4 h-4 text-purple-500"></i>
+                            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-700 dark:text-slate-200">3. Skill Proficiency Distribution</h4>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <button onclick="toggleChartVisual('3', 'canvas')" id="btn-chart-3-canvas" class="text-[10px] px-2 py-0.5 rounded font-bold bg-blue-600 text-white shadow-sm transition">Live Chart</button>
+                            <button onclick="toggleChartVisual('3', 'png')" id="btn-chart-3-png" class="text-[10px] px-2 py-0.5 rounded font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition">Python PNG</button>
+                        </div>
                     </div>
-                    <div class="p-3 bg-slate-50 dark:bg-slate-900/50 flex items-center justify-center">
-                        <img src="visualizations/skill_distribution.png" alt="Skill Distribution" class="rounded-lg max-h-80 object-contain hover:scale-105 transition duration-300 cursor-pointer" onclick="window.open(this.src)">
+                    <div class="p-4 bg-slate-50/60 dark:bg-slate-900/40 flex items-center justify-center min-h-[300px]">
+                        <div id="chart-wrap-3" class="w-full h-64 flex items-center justify-center">
+                            <canvas id="chartSkillProficiency"></canvas>
+                        </div>
+                        <div id="png-wrap-3" class="w-full hidden items-center justify-center">
+                            <img src="visualizations/skill_distribution.png" alt="Skill Distribution" class="rounded-lg max-h-72 object-contain hover:scale-105 transition duration-300 cursor-pointer" onclick="window.open(this.src)">
+                        </div>
                     </div>
                     <div class="p-3.5 text-xs text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border-t border-slate-100 dark:border-slate-700">
-                        Categorizes students across Beginner, Intermediate, and Advanced tiers for targeted skill-gap intervention.
+                        Grouped Bar: Student counts grouped across Beginner (Amber), Intermediate (Blue), and Advanced (Emerald) tiers.
                     </div>
                 </div>
 
-                <!-- Chart 4 -->
-                <div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm">
+                <!-- Chart 4: Domain-Wise Project Breakdown -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col justify-between">
                     <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
-                        <h4 class="font-bold text-xs uppercase tracking-wider text-slate-700 dark:text-slate-200">4. Domain-Wise Project Breakdown</h4>
-                        <span class="px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 text-[10px] font-mono">Count Plot</span>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="folder" class="w-4 h-4 text-amber-500"></i>
+                            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-700 dark:text-slate-200">4. Domain-Wise Project Breakdown</h4>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <button onclick="toggleChartVisual('4', 'canvas')" id="btn-chart-4-canvas" class="text-[10px] px-2 py-0.5 rounded font-bold bg-blue-600 text-white shadow-sm transition">Live Chart</button>
+                            <button onclick="toggleChartVisual('4', 'png')" id="btn-chart-4-png" class="text-[10px] px-2 py-0.5 rounded font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition">Python PNG</button>
+                        </div>
                     </div>
-                    <div class="p-3 bg-slate-50 dark:bg-slate-900/50 flex items-center justify-center">
-                        <img src="visualizations/domain_wise_projects.png" alt="Domain Wise Projects" class="rounded-lg max-h-80 object-contain hover:scale-105 transition duration-300 cursor-pointer" onclick="window.open(this.src)">
+                    <div class="p-4 bg-slate-50/60 dark:bg-slate-900/40 flex items-center justify-center min-h-[300px]">
+                        <div id="chart-wrap-4" class="w-full h-64 flex items-center justify-center">
+                            <canvas id="chartDomainProjects"></canvas>
+                        </div>
+                        <div id="png-wrap-4" class="w-full hidden items-center justify-center">
+                            <img src="visualizations/domain_wise_projects.png" alt="Domain Wise Projects" class="rounded-lg max-h-72 object-contain hover:scale-105 transition duration-300 cursor-pointer" onclick="window.open(this.src)">
+                        </div>
                     </div>
                     <div class="p-3.5 text-xs text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border-t border-slate-100 dark:border-slate-700">
-                        Depicts distribution across Data Science, ML, Cyber Security, Cloud, IoT, Web, and Mobile domains.
+                        Vertical Bar: Real-time count of mini-projects registered under AI/Data Science, ML, IoT, Web, Cloud, Cyber, and Mobile.
                     </div>
                 </div>
 
-                <!-- Chart 5 -->
-                <div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm">
+                <!-- Chart 5: Assessment Rubric Marks -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col justify-between">
                     <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
-                        <h4 class="font-bold text-xs uppercase tracking-wider text-slate-700 dark:text-slate-200">5. Assessment Rubric Spread</h4>
-                        <span class="px-2 py-0.5 rounded bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 text-[10px] font-mono">Boxplot & KDE</span>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="award" class="w-4 h-4 text-rose-500"></i>
+                            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-700 dark:text-slate-200">5. Assessment Rubric Spread</h4>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <button onclick="toggleChartVisual('5', 'canvas')" id="btn-chart-5-canvas" class="text-[10px] px-2 py-0.5 rounded font-bold bg-blue-600 text-white shadow-sm transition">Live Chart</button>
+                            <button onclick="toggleChartVisual('5', 'png')" id="btn-chart-5-png" class="text-[10px] px-2 py-0.5 rounded font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition">Python PNG</button>
+                        </div>
                     </div>
-                    <div class="p-3 bg-slate-50 dark:bg-slate-900/50 flex items-center justify-center">
-                        <img src="visualizations/evaluation_marks_distribution.png" alt="Evaluation Marks Distribution" class="rounded-lg max-h-80 object-contain hover:scale-105 transition duration-300 cursor-pointer" onclick="window.open(this.src)">
+                    <div class="p-4 bg-slate-50/60 dark:bg-slate-900/40 flex items-center justify-center min-h-[300px]">
+                        <div id="chart-wrap-5" class="w-full h-64 flex items-center justify-center">
+                            <canvas id="chartEvaluationMarks"></canvas>
+                        </div>
+                        <div id="png-wrap-5" class="w-full hidden items-center justify-center">
+                            <img src="visualizations/evaluation_marks_distribution.png" alt="Evaluation Marks Distribution" class="rounded-lg max-h-72 object-contain hover:scale-105 transition duration-300 cursor-pointer" onclick="window.open(this.src)">
+                        </div>
                     </div>
                     <div class="p-3.5 text-xs text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border-t border-slate-100 dark:border-slate-700">
-                        Displays the distribution of total scores alongside 5 component rubric spreads (Survey, Design, Impl, Testing, Viva).
+                        Dual Comparison Bar: Student Average Component Scores vs Maximum Rubric Marks (Survey, Design, Impl, Testing, Viva).
                     </div>
                 </div>
 
-                <!-- Chart 6 -->
-                <div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm">
+                <!-- Chart 6: Milestone Execution Status Breakdown -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col justify-between">
                     <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
-                        <h4 class="font-bold text-xs uppercase tracking-wider text-slate-700 dark:text-slate-200">6. Milestone Execution Status</h4>
-                        <span class="px-2 py-0.5 rounded bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 text-[10px] font-mono">Stacked Bar</span>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="check-square" class="w-4 h-4 text-cyan-500"></i>
+                            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-700 dark:text-slate-200">6. Milestone Execution Status</h4>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <button onclick="toggleChartVisual('6', 'canvas')" id="btn-chart-6-canvas" class="text-[10px] px-2 py-0.5 rounded font-bold bg-blue-600 text-white shadow-sm transition">Live Chart</button>
+                            <button onclick="toggleChartVisual('6', 'png')" id="btn-chart-6-png" class="text-[10px] px-2 py-0.5 rounded font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition">Python PNG</button>
+                        </div>
                     </div>
-                    <div class="p-3 bg-slate-50 dark:bg-slate-900/50 flex items-center justify-center">
-                        <img src="visualizations/milestone_status_breakdown.png" alt="Milestone Status Breakdown" class="rounded-lg max-h-80 object-contain hover:scale-105 transition duration-300 cursor-pointer" onclick="window.open(this.src)">
+                    <div class="p-4 bg-slate-50/60 dark:bg-slate-900/40 flex items-center justify-center min-h-[300px]">
+                        <div id="chart-wrap-6" class="w-full h-64 flex items-center justify-center">
+                            <canvas id="chartMilestoneStatus"></canvas>
+                        </div>
+                        <div id="png-wrap-6" class="w-full hidden items-center justify-center">
+                            <img src="visualizations/milestone_status_breakdown.png" alt="Milestone Status Breakdown" class="rounded-lg max-h-72 object-contain hover:scale-105 transition duration-300 cursor-pointer" onclick="window.open(this.src)">
+                        </div>
                     </div>
                     <div class="p-3.5 text-xs text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border-t border-slate-100 dark:border-slate-700">
-                        Project-wise stacked breakdown of approved, submitted, in-progress, and delayed milestone deliveries.
+                        Stacked Bar: Milestone progress per project (Approved: Emerald, In Progress: Blue, Delayed: Rose, Pending: Slate).
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- =============================================================== -->
         <!-- TAB 8: COURSE DOCUMENTS & REPOSITORY HUB -->
         <!-- =============================================================== -->
         <section id="view-docs" class="tab-content hidden space-y-6">
@@ -1328,12 +1245,900 @@
         </div>
     </footer>
 
-    <!-- Interactive JavaScript Logic -->
+    <!-- =============================================================== -->
+    <!-- INTERACTIVE MODAL: REGISTER STUDENT, SKILLS & PROJECT -->
+    <!-- =============================================================== -->
+    <div id="addModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/70 backdrop-blur-sm hidden p-4 overflow-y-auto">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 w-full max-w-2xl max-h-[92vh] overflow-y-auto p-6 sm:p-8 space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">
+                        <i data-lucide="user-plus" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-slate-100">Register Student, Skills & Project</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Scenario 2 Spec: Maintain student records, technical skills, and mini-project registry</p>
+                    </div>
+                </div>
+                <button onclick="closeAddModal()" class="p-2 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <form id="addStudentForm" onsubmit="handleAddStudentSubmit(event)" class="space-y-5">
+                <!-- Section 1: Student Details -->
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 flex items-center gap-1.5">
+                        <i data-lucide="user" class="w-3.5 h-3.5"></i> 1. Student Identification
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Register Number *</label>
+                            <input type="text" id="formRegNo" required placeholder="e.g. 732925ITR035" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 font-mono">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Student Full Name *</label>
+                            <input type="text" id="formStudentName" required placeholder="e.g. Kavitha . R" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Class / Section *</label>
+                            <select id="formClass" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500">
+                                <option value="25IT3A">25IT3A (Dept. of IT)</option>
+                                <option value="25IT3B">25IT3B (Dept. of IT)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">College Email Address *</label>
+                            <input type="email" id="formEmail" required placeholder="e.g. kavitha.r@vcet.ac.in" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 font-mono">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Technical Skills -->
+                <div class="space-y-3 pt-2 border-t border-slate-200 dark:border-slate-700">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400 flex items-center gap-1.5">
+                        <i data-lucide="cpu" class="w-3.5 h-3.5"></i> 2. Technical Skills & Programming Languages
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Skills (comma-separated or click tags below) *</label>
+                            <input type="text" id="formSkills" required placeholder="e.g. Python, SQL, Java" value="Python, SQL, Java" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500">
+                            <div class="flex flex-wrap gap-1 mt-2">
+                                <span onclick="appendSkill('Python')" class="cursor-pointer text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 hover:bg-blue-100 dark:hover:bg-blue-900 text-slate-700 dark:text-slate-300">+ Python</span>
+                                <span onclick="appendSkill('Java')" class="cursor-pointer text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 hover:bg-blue-100 dark:hover:bg-blue-900 text-slate-700 dark:text-slate-300">+ Java</span>
+                                <span onclick="appendSkill('SQL')" class="cursor-pointer text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 hover:bg-blue-100 dark:hover:bg-blue-900 text-slate-700 dark:text-slate-300">+ SQL</span>
+                                <span onclick="appendSkill('C++')" class="cursor-pointer text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 hover:bg-blue-100 dark:hover:bg-blue-900 text-slate-700 dark:text-slate-300">+ C++</span>
+                                <span onclick="appendSkill('React')" class="cursor-pointer text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 hover:bg-blue-100 dark:hover:bg-blue-900 text-slate-700 dark:text-slate-300">+ React</span>
+                                <span onclick="appendSkill('Docker')" class="cursor-pointer text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 hover:bg-blue-100 dark:hover:bg-blue-900 text-slate-700 dark:text-slate-300">+ Docker</span>
+                                <span onclick="appendSkill('AWS')" class="cursor-pointer text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 hover:bg-blue-100 dark:hover:bg-blue-900 text-slate-700 dark:text-slate-300">+ AWS</span>
+                                <span onclick="appendSkill('Spring Boot')" class="cursor-pointer text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 hover:bg-blue-100 dark:hover:bg-blue-900 text-slate-700 dark:text-slate-300">+ Spring Boot</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Primary Proficiency Level</label>
+                            <select id="formProficiency" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500">
+                                <option value="Advanced">Advanced (3+ yrs)</option>
+                                <option value="Intermediate" selected>Intermediate (1-2 yrs)</option>
+                                <option value="Beginner">Beginner (< 1 yr)</option>
+                            </select>
+                            <label class="flex items-center gap-2 mt-2.5 text-xs text-slate-600 dark:text-slate-400 cursor-pointer">
+                                <input type="checkbox" id="formCertified" checked class="rounded text-blue-600 focus:ring-blue-500">
+                                <span>Industry Certified</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Project Registration -->
+                <div class="space-y-3 pt-2 border-t border-slate-200 dark:border-slate-700">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
+                        <i data-lucide="folder-check" class="w-3.5 h-3.5"></i> 3. Mini-Project Registration
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Project Title *</label>
+                            <input type="text" id="formProjectTitle" required placeholder="e.g. AI-Powered Smart Campus Navigation System" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Project Domain *</label>
+                            <select id="formDomain" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500">
+                                <option value="Data Science">Data Science</option>
+                                <option value="Machine Learning">Machine Learning</option>
+                                <option value="IoT">Internet of Things (IoT)</option>
+                                <option value="Web Development">Web Development</option>
+                                <option value="Cloud Computing">Cloud Computing</option>
+                                <option value="Cyber Security">Cyber Security</option>
+                                <option value="Mobile App">Mobile Applications</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Completion Status *</label>
+                            <select id="formStatus" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500">
+                                <option value="In Progress">In Progress</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Delayed">Delayed</option>
+                            </select>
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Technologies Used (comma separated)</label>
+                            <input type="text" id="formTechUsed" placeholder="e.g. Python, TensorFlow, React, FastAPI, SQLite" value="Python, SQLite, Streamlit" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Project Description</label>
+                            <textarea id="formDescription" rows="2" placeholder="Briefly describe project problem statement, objectives, and deliverables..." class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500">Intelligent system designed to streamline academic project lifecycle and enhance student skill competencies.</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Action Buttons -->
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-slate-200 dark:border-slate-700">
+                    <button type="button" onclick="prefillSampleStudent()" class="text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 font-semibold">
+                        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Prefill with Sample Student
+                    </button>
+                    <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                        <button type="button" onclick="closeAddModal()" class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold hover:bg-slate-200 dark:hover:bg-slate-600 transition">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold flex items-center gap-1.5 shadow-md transition">
+                            <i data-lucide="check" class="w-4 h-4"></i> Save & Register Student
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Floating Toast Notification -->
+    <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3 px-4 py-3 rounded-xl shadow-2xl bg-emerald-600 text-white font-medium text-xs pointer-events-none">
+        <i data-lucide="check-circle" class="w-5 h-5"></i>
+        <span id="toastMessage">Student and Project Registered Successfully!</span>
+    </div>
+
+    <!-- =============================================================== -->
+    <!-- JAVASCRIPT: DATA STORE, CHART.JS VISUALS, & REACTIVE STATE -->
+    <!-- =============================================================== -->
     <script>
         // Initialize Lucide Icons
         lucide.createIcons();
 
-        // Dark / Light Mode Toggle
+        // -------------------------------------------------------------
+        // 1. Core Default Student Data (Course PDF Page 2 Requirements)
+        // -------------------------------------------------------------
+        const initialStudents = [
+            {
+                regNo: '732925ITR032',
+                pdfNum: '32',
+                name: 'Gokul . S',
+                isLead: true,
+                class: '25IT3A',
+                email: 'gokul.s@vcet.ac.in',
+                skills: ['Java (Adv)', 'Python (Adv)', 'SQL (Adv)', 'Pandas & NumPy', 'Spring Boot', 'Git (Cert)'],
+                status: 'Project Completed',
+                scenario: '2'
+            },
+            {
+                regNo: '732925ITR002',
+                pdfNum: '2',
+                name: 'Aakash . M',
+                isLead: false,
+                class: '25IT3A',
+                email: 'aakash.m@vcet.ac.in',
+                skills: ['C++ (Int)', 'Python (Int)', 'SQL (Beg)', 'Git'],
+                status: 'In Progress',
+                scenario: '2'
+            },
+            {
+                regNo: '732925ITR062',
+                pdfNum: '62',
+                name: 'Kavin . P',
+                isLead: false,
+                class: '25IT3A',
+                email: 'kavin.p@vcet.ac.in',
+                skills: ['Python (Adv)', 'Pandas (Adv)', 'Scikit-Learn', 'TensorFlow'],
+                status: 'Project Completed',
+                scenario: '2'
+            },
+            {
+                regNo: '732925ITR092',
+                pdfNum: '92',
+                name: 'Preethi . S',
+                isLead: false,
+                class: '25IT3B',
+                email: 'preethi.s@vcet.ac.in',
+                skills: ['Java (Adv)', 'JavaScript', 'React.js', 'SQL'],
+                status: 'In Progress',
+                scenario: '2'
+            },
+            {
+                regNo: '732925ITL002',
+                pdfNum: 'L2',
+                name: 'Vignesh . R',
+                isLead: false,
+                class: '25IT3B',
+                email: 'vignesh.r@vcet.ac.in',
+                skills: ['Python (Int)', 'Docker (Cert)', 'AWS Cloud'],
+                status: 'In Progress',
+                scenario: '2'
+            },
+            {
+                regNo: '732925ITR015',
+                name: 'Deepa . V',
+                isLead: false,
+                class: '25IT3A',
+                email: 'deepa.v@vcet.ac.in',
+                skills: ['Python (Adv)', 'C++', 'SQL'],
+                status: 'Project Completed',
+                scenario: 'other'
+            },
+            {
+                regNo: '732925ITR045',
+                name: 'Harish . K',
+                isLead: false,
+                class: '25IT3A',
+                email: 'harish.k@vcet.ac.in',
+                skills: ['Flutter (Adv)', 'JavaScript', 'MongoDB'],
+                status: 'In Progress',
+                scenario: 'other'
+            },
+            {
+                regNo: '732925ITR078',
+                name: 'Nithya . B',
+                isLead: false,
+                class: '25IT3B',
+                email: 'nithya.b@vcet.ac.in',
+                skills: ['Python (Adv)', 'Pandas (Adv)', 'SQL (Adv)'],
+                status: 'Project Completed',
+                scenario: 'other'
+            },
+            {
+                regNo: '732925ITR085',
+                name: 'Pradeep . N',
+                isLead: false,
+                class: '25IT3B',
+                email: 'pradeep.n@vcet.ac.in',
+                skills: ['Python (Int)', 'Scikit-Learn', 'Flask'],
+                status: 'Delayed',
+                scenario: 'other'
+            },
+            {
+                regNo: '732925ITR105',
+                name: 'Sneha . T',
+                isLead: false,
+                class: '25IT3B',
+                email: 'sneha.t@vcet.ac.in',
+                skills: ['Java (Int)', 'JavaScript', 'SQL'],
+                status: 'In Progress',
+                scenario: 'other'
+            }
+        ];
+
+        // -------------------------------------------------------------
+        // 2. Core Default Project Data
+        // -------------------------------------------------------------
+        const initialProjects = [
+            {
+                id: '101',
+                title: 'Student Project and Skill Tracking System (SPSTS)',
+                domain: 'Data Science',
+                studentName: 'Gokul . S',
+                regNo: '732925ITR032',
+                pdfNum: '32',
+                class: '25IT3A',
+                status: 'Completed',
+                description: 'Centralized academic tracking system consolidating student mini-projects, skill matrices, milestone monitoring, and EDA visualization.',
+                tech: ['Java', 'SQLite (BCNF)', 'Python', 'Pandas', 'Seaborn'],
+                score: '95.5% (Grade O)',
+                milestones: '3 Completed',
+                isFeatured: true
+            },
+            {
+                id: '103',
+                title: 'Automated Cancer Diagnosis using Deep Learning',
+                domain: 'Machine Learning',
+                studentName: 'Kavin . P',
+                regNo: '732925ITR062',
+                pdfNum: '62',
+                class: '25IT3A',
+                status: 'Completed',
+                description: 'Computer vision CNN classifier trained on biopsy histopathology images for malignant tumor detection.',
+                tech: ['Python', 'TensorFlow', 'OpenCV', 'Flask'],
+                score: '92.0% (Grade O)',
+                milestones: '2 Completed',
+                isFeatured: false
+            },
+            {
+                id: '102',
+                title: 'IoT Smart Agriculture & Soil Irrigation Monitor',
+                domain: 'IoT',
+                studentName: 'Aakash . M',
+                regNo: '732925ITR002',
+                pdfNum: '2',
+                class: '25IT3A',
+                status: 'In Progress',
+                description: 'Low-cost sensor monitoring system measuring soil moisture, humidity, and temperature for automated pump irrigation.',
+                tech: ['C++', 'ESP32', 'MQTT', 'SQLite'],
+                score: '76.5% (Grade A)',
+                milestones: 'M3 Delayed',
+                isFeatured: false
+            },
+            {
+                id: '104',
+                title: 'Secure E-Commerce Microservices Platform',
+                domain: 'Web Development',
+                studentName: 'Preethi . S',
+                regNo: '732925ITR092',
+                pdfNum: '92',
+                class: '25IT3B',
+                status: 'In Progress',
+                description: 'Online shopping platform featuring JWT authentication, product catalog, payment gateway integration, and shopping cart.',
+                tech: ['Java', 'Spring Boot', 'React', 'MySQL'],
+                score: '85.0% (Grade A+)',
+                milestones: 'M3 In Progress',
+                isFeatured: false
+            },
+            {
+                id: '105',
+                title: 'Cloud-Native Serverless Log Analyzer',
+                domain: 'Cloud Computing',
+                studentName: 'Vignesh . R',
+                regNo: '732925ITL002',
+                pdfNum: 'L2',
+                class: '25IT3B',
+                status: 'In Progress',
+                description: 'Distributed log analysis tool capturing container logs, detecting anomaly surges, and notifying admins via AWS SNS alerts.',
+                tech: ['Python', 'AWS Lambda', 'Docker', 'CloudWatch', 'SQLite'],
+                score: '78.0% (Grade A)',
+                milestones: 'M2 In Progress',
+                isFeatured: false
+            }
+        ];
+
+        // -------------------------------------------------------------
+        // 3. Application State & Storage Sync
+        // -------------------------------------------------------------
+        let studentsList = [];
+        let projectsList = [];
+
+        function loadState() {
+            const savedStudents = localStorage.getItem('spsts_user_students');
+            const savedProjects = localStorage.getItem('spsts_user_projects');
+
+            studentsList = savedStudents ? JSON.parse(savedStudents) : [...initialStudents];
+            projectsList = savedProjects ? JSON.parse(savedProjects) : [...initialProjects];
+        }
+
+        function saveState() {
+            localStorage.setItem('spsts_user_students', JSON.stringify(studentsList));
+            localStorage.setItem('spsts_user_projects', JSON.stringify(projectsList));
+        }
+
+        // -------------------------------------------------------------
+        // 4. Render Students Table & Projects Grid
+        // -------------------------------------------------------------
+        function renderStudentsTable(filterType = 'all') {
+            const tbody = document.getElementById('studentsTableBody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            const filtered = studentsList.filter(s => {
+                if (filterType === 'all') return true;
+                if (filterType === 'scenario2') return s.scenario === '2';
+                return true;
+            });
+
+            filtered.forEach(s => {
+                const tr = document.createElement('tr');
+                tr.setAttribute('data-scenario', s.scenario || 'other');
+                tr.className = (s.isLead ? 'bg-blue-50/50 dark:bg-blue-950/20 ' : '') + 'hover:bg-slate-50 dark:hover:bg-slate-700/30 transition' + (s.isNew ? ' ring-2 ring-emerald-400 dark:ring-emerald-500' : '');
+
+                let badgeHtml = '';
+                if (s.isLead) {
+                    badgeHtml = `<span class="ml-1 text-[10px] px-1.5 py-0.5 rounded bg-blue-600 text-white font-semibold">Author</span>`;
+                } else if (s.isNew) {
+                    badgeHtml = `<span class="ml-1 text-[10px] px-1.5 py-0.5 rounded bg-emerald-600 text-white font-semibold animate-pulse">New</span>`;
+                }
+
+                let pdfBadge = s.pdfNum ? `<span class="block text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold">PDF Reg #${s.pdfNum}</span>` : '';
+
+                let statusBadgeClass = 'bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300';
+                if (s.status.includes('Completed')) statusBadgeClass = 'bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300';
+                if (s.status.includes('Delayed')) statusBadgeClass = 'bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300';
+
+                const skillsBadges = s.skills.map(sk => {
+                    let color = 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300';
+                    if (sk.includes('Adv')) color = 'bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-semibold';
+                    else if (sk.includes('Int')) color = 'bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300';
+                    else if (sk.includes('Cert')) color = 'bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 font-semibold';
+                    return `<span class="px-2 py-0.5 rounded ${color} text-[11px]">${sk}</span>`;
+                }).join(' ');
+
+                tr.innerHTML = `
+                    <td class="p-3.5 font-mono ${s.isLead ? 'font-bold text-blue-600 dark:text-blue-400' : 'font-semibold'}">
+                        ${s.regNo}
+                        ${pdfBadge}
+                    </td>
+                    <td class="p-3.5 font-semibold">
+                        ${s.name} ${badgeHtml}
+                    </td>
+                    <td class="p-3.5">${s.class}</td>
+                    <td class="p-3.5 text-slate-500 dark:text-slate-400 font-mono">${s.email}</td>
+                    <td class="p-3.5">
+                        <div class="flex flex-wrap gap-1">${skillsBadges}</div>
+                    </td>
+                    <td class="p-3.5">
+                        <span class="px-2 py-1 rounded-full ${statusBadgeClass} text-[10px] font-bold">${s.status}</span>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            // Update KPI count
+            const countEl = document.getElementById('kpi-students-count');
+            if (countEl) countEl.textContent = studentsList.length;
+            const cohortAllEl = document.getElementById('count-all-students');
+            if (cohortAllEl) cohortAllEl.textContent = studentsList.length;
+        }
+
+        function renderProjectsContainer() {
+            const container = document.getElementById('projectsContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            projectsList.forEach(p => {
+                const card = document.createElement('div');
+                const isLead = p.isFeatured;
+                card.className = `p-5 rounded-xl bg-white dark:bg-slate-800 border ${isLead ? 'border-2 border-blue-500 shadow-sm' : 'border-slate-200 dark:border-slate-700 shadow-sm'} ${p.isNew ? 'ring-2 ring-emerald-400' : ''}`;
+
+                let statusBadgeClass = 'bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300';
+                if (p.status === 'Completed') statusBadgeClass = 'bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300';
+                if (p.status === 'Delayed') statusBadgeClass = 'bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300';
+
+                const techBadges = p.tech.map(t => `<span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-[11px] font-mono">${t}</span>`).join(' ');
+
+                let pdfBadge = p.pdfNum ? `• <span class="text-indigo-600 dark:text-indigo-400 font-bold">PDF Reg #${p.pdfNum}</span>` : '';
+
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono font-bold ${isLead ? 'text-blue-600 dark:text-blue-400' : 'text-slate-500'} uppercase">PROJECT #${p.id} • ${p.domain}</span>
+                        <span class="px-2.5 py-0.5 rounded-full ${statusBadgeClass} font-bold text-xs">${p.status}</span>
+                    </div>
+                    <h4 class="text-base font-bold mt-2">${p.title}</h4>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Student: <strong>${p.studentName}</strong> (${p.regNo} ${pdfBadge}) • ${p.class}</p>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 mt-2">${p.description}</p>
+                    <div class="mt-3 flex flex-wrap gap-1.5">${techBadges}</div>
+                    <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between text-xs">
+                        <span class="text-slate-500">Milestones: <strong>${p.milestones || 'In Progress'}</strong></span>
+                        <span class="${p.status === 'Completed' ? 'text-emerald-600 dark:text-emerald-400' : 'text-blue-600 dark:text-blue-400'} font-bold">Grade: ${p.score || 'In Review'}</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            // Update KPI Projects count
+            const countEl = document.getElementById('kpi-projects-count');
+            if (countEl) countEl.textContent = projectsList.length;
+        }
+
+        // -------------------------------------------------------------
+        // 5. Interactive Chart.js Visualizations Setup
+        // -------------------------------------------------------------
+        let charts = {};
+
+        function initCharts() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const textColor = isDark ? '#cbd5e1' : '#475569';
+            const gridColor = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)';
+
+            // Common Options
+            Chart.defaults.color = textColor;
+            Chart.defaults.font.family = 'Inter, sans-serif';
+
+            // Chart 1: Project Completion Status (Doughnut)
+            const ctx1 = document.getElementById('chartProjectStatus');
+            if (ctx1) {
+                const completed = projectsList.filter(p => p.status === 'Completed').length;
+                const inProgress = projectsList.filter(p => p.status === 'In Progress').length;
+                const delayed = projectsList.filter(p => p.status === 'Delayed').length;
+
+                charts.projectStatus = new Chart(ctx1, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Completed', 'In Progress', 'Delayed'],
+                        datasets: [{
+                            data: [completed, inProgress, delayed],
+                            backgroundColor: ['#10b981', '#3b82f6', '#f43f5e'],
+                            borderColor: isDark ? '#1e293b' : '#ffffff',
+                            borderWidth: 3,
+                            hoverOffset: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '68%',
+                        plugins: {
+                            legend: { position: 'bottom', labels: { boxWidth: 12, padding: 15 } }
+                        }
+                    }
+                });
+            }
+
+            // Chart 2: Top 10 Popular Technical Skills (Horizontal Bar)
+            const ctx2 = document.getElementById('chartPopularSkills');
+            if (ctx2) {
+                charts.popularSkills = new Chart(ctx2, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Python', 'SQL', 'Java', 'Git', 'Pandas', 'C++', 'JavaScript', 'Docker', 'Scikit-Learn', 'AWS'],
+                        datasets: [{
+                            label: 'Students Possessing Skill',
+                            data: [7, 6, 5, 4, 4, 3, 3, 2, 2, 2],
+                            backgroundColor: '#3b82f6',
+                            borderRadius: 6
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { grid: { color: gridColor }, ticks: { stepSize: 1 } },
+                            y: { grid: { display: false } }
+                        }
+                    }
+                });
+            }
+
+            // Chart 3: Skill Proficiency Distribution (Grouped Bar)
+            const ctx3 = document.getElementById('chartSkillProficiency');
+            if (ctx3) {
+                charts.skillProficiency = new Chart(ctx3, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Python', 'Java', 'SQL', 'Git', 'Pandas', 'C++', 'JavaScript', 'Docker'],
+                        datasets: [
+                            {
+                                label: 'Beginner',
+                                data: [1, 1, 2, 1, 0, 1, 1, 0],
+                                backgroundColor: '#f59e0b',
+                                borderRadius: 4
+                            },
+                            {
+                                label: 'Intermediate',
+                                data: [2, 2, 2, 1, 1, 2, 2, 2],
+                                backgroundColor: '#3b82f6',
+                                borderRadius: 4
+                            },
+                            {
+                                label: 'Advanced',
+                                data: [4, 2, 2, 2, 3, 0, 0, 0],
+                                backgroundColor: '#10b981',
+                                borderRadius: 4
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { position: 'top', labels: { boxWidth: 12 } } },
+                        scales: {
+                            x: { grid: { display: false } },
+                            y: { grid: { color: gridColor }, ticks: { stepSize: 1 } }
+                        }
+                    }
+                });
+            }
+
+            // Chart 4: Domain-Wise Project Breakdown (Vertical Bar)
+            const ctx4 = document.getElementById('chartDomainProjects');
+            if (ctx4) {
+                charts.domainProjects = new Chart(ctx4, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Data Science', 'Machine Learning', 'IoT', 'Web Development', 'Cloud Computing', 'Cyber Security', 'Mobile App'],
+                        datasets: [{
+                            label: 'Registered Projects',
+                            data: [2, 2, 1, 2, 1, 1, 1],
+                            backgroundColor: ['#6366f1', '#8b5cf6', '#ec4899', '#3b82f6', '#06b6d4', '#14b8a6', '#f59e0b'],
+                            borderRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+                            y: { grid: { color: gridColor }, ticks: { stepSize: 1 } }
+                        }
+                    }
+                });
+            }
+
+            // Chart 5: Assessment Rubric Marks Distribution
+            const ctx5 = document.getElementById('chartEvaluationMarks');
+            if (ctx5) {
+                charts.evaluationMarks = new Chart(ctx5, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Literature Survey (20)', 'System Design (20)', 'Implementation (30)', 'Testing & QA (20)', 'Viva Voce (10)'],
+                        datasets: [
+                            {
+                                label: 'Average Marks Awarded',
+                                data: [17.6, 17.4, 25.8, 16.9, 8.6],
+                                backgroundColor: '#6366f1',
+                                borderRadius: 4
+                            },
+                            {
+                                label: 'Maximum Rubric Marks',
+                                data: [20.0, 20.0, 30.0, 20.0, 10.0],
+                                backgroundColor: isDark ? '#334155' : '#cbd5e1',
+                                borderRadius: 4
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { position: 'top', labels: { boxWidth: 12 } } },
+                        scales: {
+                            x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+                            y: { grid: { color: gridColor }, max: 35 }
+                        }
+                    }
+                });
+            }
+
+            // Chart 6: Milestone Execution Status Breakdown
+            const ctx6 = document.getElementById('chartMilestoneStatus');
+            if (ctx6) {
+                charts.milestoneStatus = new Chart(ctx6, {
+                    type: 'bar',
+                    data: {
+                        labels: ['P101 (Gokul)', 'P102 (Aakash)', 'P103 (Kavin)', 'P104 (Preethi)', 'P105 (Vignesh)', 'P106 (Deepa)', 'P107 (Harish)', 'P108 (Pradeep)', 'P109 (Nithya)', 'P110 (Sneha)'],
+                        datasets: [
+                            { label: 'Approved', data: [5, 2, 3, 2, 2, 2, 1, 0, 0, 0], backgroundColor: '#10b981' },
+                            { label: 'In Progress', data: [0, 0, 0, 1, 1, 1, 1, 1, 0, 0], backgroundColor: '#3b82f6' },
+                            { label: 'Delayed', data: [0, 1, 0, 0, 0, 0, 0, 1, 0, 0], backgroundColor: '#f43f5e' },
+                            { label: 'Pending', data: [0, 0, 0, 0, 0, 0, 1, 1, 3, 3], backgroundColor: isDark ? '#475569' : '#94a3b8' }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: { stacked: true, grid: { display: false }, ticks: { font: { size: 9 } } },
+                            y: { stacked: true, grid: { color: gridColor }, ticks: { stepSize: 1 } }
+                        },
+                        plugins: { legend: { position: 'top', labels: { boxWidth: 10 } } }
+                    }
+                });
+            }
+        }
+
+        function updateChartsDynamic(newDomain, newStatus, newSkills) {
+            // Update Project Completion Donut
+            if (charts.projectStatus) {
+                const completed = projectsList.filter(p => p.status === 'Completed').length;
+                const inProgress = projectsList.filter(p => p.status === 'In Progress').length;
+                const delayed = projectsList.filter(p => p.status === 'Delayed').length;
+                charts.projectStatus.data.datasets[0].data = [completed, inProgress, delayed];
+                charts.projectStatus.update();
+            }
+
+            // Update Domain Bar Chart
+            if (charts.domainProjects && newDomain) {
+                const domainIdx = charts.domainProjects.data.labels.indexOf(newDomain);
+                if (domainIdx !== -1) {
+                    charts.domainProjects.data.datasets[0].data[domainIdx] += 1;
+                    charts.domainProjects.update();
+                }
+            }
+
+            // Update Popular Skills Chart
+            if (charts.popularSkills && Array.isArray(newSkills)) {
+                newSkills.forEach(sk => {
+                    const clean = sk.split('(')[0].trim();
+                    const sIdx = charts.popularSkills.data.labels.findIndex(l => l.toLowerCase() === clean.toLowerCase());
+                    if (sIdx !== -1) {
+                        charts.popularSkills.data.datasets[0].data[sIdx] += 1;
+                    }
+                });
+                charts.popularSkills.update();
+            }
+        }
+
+        // Toggle Visual Mode between Live Canvas & Matplotlib PNG
+        function toggleChartVisual(id, mode) {
+            const chartWrap = document.getElementById(`chart-wrap-${id}`);
+            const pngWrap = document.getElementById(`png-wrap-${id}`);
+            const btnCanvas = document.getElementById(`btn-chart-1-canvas`) ? document.getElementById(`btn-chart-${id}-canvas`) : null;
+            const btnPng = document.getElementById(`btn-chart-1-png`) ? document.getElementById(`btn-chart-${id}-png`) : null;
+
+            if (mode === 'canvas') {
+                if (chartWrap) chartWrap.classList.remove('hidden');
+                if (pngWrap) pngWrap.classList.add('hidden');
+                if (btnCanvas) {
+                    btnCanvas.className = 'text-[10px] px-2 py-0.5 rounded font-bold bg-blue-600 text-white shadow-sm transition';
+                }
+                if (btnPng) {
+                    btnPng.className = 'text-[10px] px-2 py-0.5 rounded font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition';
+                }
+            } else {
+                if (chartWrap) chartWrap.classList.add('hidden');
+                if (pngWrap) pngWrap.classList.remove('hidden');
+                if (btnPng) {
+                    btnPng.className = 'text-[10px] px-2 py-0.5 rounded font-bold bg-blue-600 text-white shadow-sm transition';
+                }
+                if (btnCanvas) {
+                    btnCanvas.className = 'text-[10px] px-2 py-0.5 rounded font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition';
+                }
+            }
+        }
+
+        // -------------------------------------------------------------
+        // 6. Modal Functions & Dynamic Form Submission
+        // -------------------------------------------------------------
+        function openAddModal() {
+            const modal = document.getElementById('addModal');
+            if (modal) modal.classList.remove('hidden');
+            setTimeout(() => {
+                const regInput = document.getElementById('formRegNo');
+                if (regInput) regInput.focus();
+            }, 100);
+            lucide.createIcons();
+        }
+
+        function closeAddModal() {
+            const modal = document.getElementById('addModal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function appendSkill(skillName) {
+            const input = document.getElementById('formSkills');
+            if (!input) return;
+            const curr = input.value.trim();
+            if (curr.length === 0) {
+                input.value = skillName;
+            } else if (!curr.toLowerCase().includes(skillName.toLowerCase())) {
+                input.value = curr + ', ' + skillName;
+            }
+        }
+
+        function prefillSampleStudent() {
+            document.getElementById('formRegNo').value = '732925ITR035';
+            document.getElementById('formStudentName').value = 'Kavitha . R';
+            document.getElementById('formClass').value = '25IT3A';
+            document.getElementById('formEmail').value = 'kavitha.r@vcet.ac.in';
+            document.getElementById('formSkills').value = 'Python, SQL, TensorFlow, Flask';
+            document.getElementById('formProficiency').value = 'Advanced';
+            document.getElementById('formCertified').checked = true;
+            document.getElementById('formProjectTitle').value = 'AI Campus Attendance & Smart Face Recognition System';
+            document.getElementById('formDomain').value = 'Machine Learning';
+            document.getElementById('formStatus').value = 'In Progress';
+            document.getElementById('formTechUsed').value = 'Python, OpenCV, SQLite, FastAPI, Streamlit';
+            document.getElementById('formDescription').value = 'Edge computing computer vision system detecting and logging student attendance into relational SQLite database.';
+        }
+
+        function handleAddStudentSubmit(e) {
+            e.preventDefault();
+
+            const regNo = document.getElementById('formRegNo').value.trim();
+            const name = document.getElementById('formStudentName').value.trim();
+            const className = document.getElementById('formClass').value;
+            const email = document.getElementById('formEmail').value.trim();
+            const rawSkills = document.getElementById('formSkills').value.trim();
+            const proficiency = document.getElementById('formProficiency').value;
+            const isCert = document.getElementById('formCertified').checked;
+            const title = document.getElementById('formProjectTitle').value.trim();
+            const domain = document.getElementById('formDomain').value;
+            const status = document.getElementById('formStatus').value;
+            const techUsed = document.getElementById('formTechUsed').value.trim();
+            const description = document.getElementById('formDescription').value.trim();
+
+            if (!regNo || !name || !title) {
+                alert('Please fill out Register Number, Student Name, and Project Title.');
+                return;
+            }
+
+            // Parse skills
+            const parsedSkills = rawSkills.split(',').map(s => s.trim()).filter(s => s.length > 0);
+            const formattedSkills = parsedSkills.map((s, idx) => {
+                if (idx === 0) return `${s} (${proficiency.slice(0,3)}${isCert ? ' • Cert' : ''})`;
+                return s;
+            });
+
+            // Create New Student Record
+            const newStudent = {
+                regNo: regNo,
+                name: name,
+                class: className,
+                email: email,
+                skills: formattedSkills,
+                status: status === 'Completed' ? 'Project Completed' : status,
+                scenario: 'other',
+                isNew: true
+            };
+
+            // Create New Project Record
+            const newProjectId = 100 + projectsList.length + 1;
+            const newProject = {
+                id: String(newProjectId),
+                title: title,
+                domain: domain,
+                studentName: name,
+                regNo: regNo,
+                class: className,
+                status: status,
+                description: description || 'Registered project under Scenario 2.',
+                tech: techUsed ? techUsed.split(',').map(t => t.trim()) : ['Python', 'SQL'],
+                score: status === 'Completed' ? '90.0% (Grade O)' : 'In Review',
+                milestones: status === 'Completed' ? 'All Approved' : 'M1 In Progress',
+                isNew: true
+            };
+
+            // Add to active state
+            studentsList.unshift(newStudent);
+            projectsList.unshift(newProject);
+            saveState();
+
+            // Refresh UI
+            renderStudentsTable();
+            renderProjectsContainer();
+            updateChartsDynamic(domain, status, parsedSkills);
+
+            // Close Modal & Reset Form
+            closeAddModal();
+            document.getElementById('addStudentForm').reset();
+
+            // Show Toast Alert
+            showToast(`🎉 Student ${name} & Project registered successfully!`);
+
+            // Switch to Students tab to show newly added record
+            switchTab('students');
+            lucide.createIcons();
+        }
+
+        function resetStudentData() {
+            if (confirm('Are you sure you want to restore the default 10 assigned students and projects?')) {
+                localStorage.removeItem('spsts_user_students');
+                localStorage.removeItem('spsts_user_projects');
+                loadState();
+                renderStudentsTable();
+                renderProjectsContainer();
+                if (charts.projectStatus) {
+                    charts.projectStatus.destroy();
+                    charts.popularSkills.destroy();
+                    charts.skillProficiency.destroy();
+                    charts.domainProjects.destroy();
+                    charts.evaluationMarks.destroy();
+                    charts.milestoneStatus.destroy();
+                    initCharts();
+                }
+                showToast('Default student cohort and projects restored.');
+                lucide.createIcons();
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toastNotification');
+            const msgEl = document.getElementById('toastMessage');
+            if (!toast || !msgEl) return;
+
+            msgEl.textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        // -------------------------------------------------------------
+        // 7. Dark / Light Mode Toggle
+        // -------------------------------------------------------------
         const themeToggleBtn = document.getElementById('themeToggle');
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
@@ -1341,16 +2146,23 @@
             document.documentElement.classList.remove('dark');
         }
 
-        themeToggleBtn.addEventListener('click', () => {
-            document.documentElement.classList.toggle('dark');
-            if (document.documentElement.classList.contains('dark')) {
-                localStorage.setItem('theme', 'dark');
-            } else {
-                localStorage.setItem('theme', 'light');
-            }
-        });
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                document.documentElement.classList.toggle('dark');
+                const isDark = document.documentElement.classList.contains('dark');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
 
-        // Tab Switching
+                // Re-sync charts with theme colors
+                if (charts.projectStatus) {
+                    Object.values(charts).forEach(c => c && c.destroy && c.destroy());
+                    initCharts();
+                }
+            });
+        }
+
+        // -------------------------------------------------------------
+        // 8. Tab Navigation & Chart Resize Sync
+        // -------------------------------------------------------------
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -1364,11 +2176,21 @@
             if (activeTab) {
                 activeTab.className = 'tab-btn px-3 py-1.5 rounded-md bg-blue-600 text-white font-semibold flex items-center gap-1.5 whitespace-nowrap';
             }
+
+            // When opening visualizations tab, resize all Chart.js instances
+            if (tabId === 'visualizations') {
+                setTimeout(() => {
+                    Object.values(charts).forEach(c => c && c.resize && c.resize());
+                }, 50);
+            }
+
             lucide.createIcons();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Live Dynamic Rubric Calculation
+        // -------------------------------------------------------------
+        // 9. Rubric Grade Calculator
+        // -------------------------------------------------------------
         function calculateGrade() {
             const survey = parseFloat(document.getElementById('slider-survey').value);
             const design = parseFloat(document.getElementById('slider-design').value);
@@ -1419,22 +2241,19 @@
             descElem.textContent = desc;
         }
 
-        // Search in Student Table
+        // -------------------------------------------------------------
+        // 10. Search & Filter Handlers
+        // -------------------------------------------------------------
         function filterStudents() {
             const input = document.getElementById('studentSearch').value.toLowerCase();
-            const rows = document.querySelectorAll('#studentsTable tbody tr');
+            const rows = document.querySelectorAll('#studentsTableBody tr');
 
             rows.forEach(row => {
                 const text = row.innerText.toLowerCase();
-                if (text.includes(input)) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
+                row.style.display = text.includes(input) ? '' : 'none';
             });
         }
 
-        // Cohort Filter (All vs Scenario 2)
         function filterCohort(type) {
             document.querySelectorAll('.cohort-filter-btn').forEach(b => {
                 b.className = 'cohort-filter-btn px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs hover:bg-slate-200 dark:hover:bg-slate-600 transition';
@@ -1443,20 +2262,20 @@
             if (activeBtn) {
                 activeBtn.className = 'cohort-filter-btn px-3 py-1.5 rounded-lg bg-blue-600 text-white font-semibold text-xs transition';
             }
-
-            const rows = document.querySelectorAll('#studentsTable tbody tr');
-            rows.forEach(row => {
-                if (type === 'all') {
-                    row.style.display = '';
-                } else if (type === 'scenario2') {
-                    if (row.getAttribute('data-scenario') === '2') {
-                        row.style.display = '';
-                    } else {
-                        row.style.display = 'none';
-                    }
-                }
-            });
+            renderStudentsTable(type);
+            lucide.createIcons();
         }
+
+        // -------------------------------------------------------------
+        // 11. Page Initialization
+        // -------------------------------------------------------------
+        window.addEventListener('DOMContentLoaded', () => {
+            loadState();
+            renderStudentsTable();
+            renderProjectsContainer();
+            initCharts();
+            lucide.createIcons();
+        });
     </script>
 </body>
 </html>
