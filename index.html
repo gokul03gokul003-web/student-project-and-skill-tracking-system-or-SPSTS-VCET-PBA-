@@ -42,7 +42,7 @@
     <div class="bg-gradient-to-r from-blue-900 via-indigo-900 to-blue-950 text-white py-2 px-4 text-xs sm:text-sm text-center font-medium shadow-md">
         <span>🎓 Velalar College of Engineering and Technology (Autonomous), Erode – 12 | Department of Information Technology</span>
         <span class="mx-2 hidden md:inline">•</span>
-        <span class="bg-blue-600/50 px-2 py-0.5 rounded text-blue-200 text-xs hidden md:inline">Academic Year: 2026-27 (Odd)</span>
+        <span class="bg-blue-600/50 px-2 py-0.5 rounded text-blue-200 text-xs hidden md:inline">Academic Year: 2026-27 (Odd) • Class: 25IT3A&B</span>
     </div>
 
     <!-- Navigation Bar -->
@@ -81,9 +81,12 @@
     <!-- Navigation Tabs -->
     <nav class="bg-white dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700/60 sticky top-16 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex space-x-1 sm:space-x-4 overflow-x-auto py-2 no-scrollbar text-xs sm:text-sm font-medium">
+            <div class="flex space-x-1 sm:space-x-3 overflow-x-auto py-2 no-scrollbar text-xs sm:text-sm font-medium">
                 <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-btn px-3 py-1.5 rounded-md bg-blue-600 text-white font-semibold flex items-center gap-1.5 whitespace-nowrap">
                     <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Overview Dashboard
+                </button>
+                <button onclick="switchTab('scenario2')" id="tab-scenario2" class="tab-btn px-3 py-1.5 rounded-md text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-1.5 whitespace-nowrap">
+                    <i data-lucide="clipboard-check" class="w-4 h-4 text-indigo-500"></i> Scenario 2 (PDF Spec)
                 </button>
                 <button onclick="switchTab('students')" id="tab-students" class="tab-btn px-3 py-1.5 rounded-md text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-1.5 whitespace-nowrap">
                     <i data-lucide="users" class="w-4 h-4"></i> Students & Skills
@@ -120,13 +123,13 @@
                     <div>
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/30 text-xs font-semibold mb-3">
                             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                            Project-Based Assessment • Scenario 2
+                            Project-Based Assessment • Scenario 2 Assigned
                         </div>
                         <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
                             Student Project & Skill Tracking System
                         </h2>
                         <p class="text-slate-300 text-sm mt-2 max-w-2xl">
-                            A centralized academic ecosystem integrating Software Engineering (SRS/UML), Java Object-Oriented Application (JDBC/Streams), SQLite BCNF Relational Modeling, and Python Exploratory Data Analysis.
+                            A centralized academic tracking platform replacing fragmented spreadsheets to record student mini-projects, technical skills, programming languages, project milestones, and component evaluation rubrics.
                         </p>
                         <div class="mt-4 flex flex-wrap items-center gap-4 text-xs font-medium text-slate-300">
                             <div class="flex items-center gap-1.5 bg-white/10 px-3 py-1.5 rounded-lg">
@@ -137,20 +140,20 @@
                                 <i data-lucide="graduation-cap" class="w-3.5 h-3.5 text-blue-300"></i>
                                 <span>Class: <strong>25IT3A</strong> • VCET Erode</span>
                             </div>
-                            <div class="flex items-center gap-1.5 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-3 py-1.5 rounded-lg">
-                                <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
-                                <span>Verification Status: <strong>100% Passed</strong></span>
+                            <div class="flex items-center gap-1.5 bg-indigo-500/20 text-indigo-200 border border-indigo-400/30 px-3 py-1.5 rounded-lg">
+                                <i data-lucide="id-card" class="w-3.5 h-3.5 text-indigo-300"></i>
+                                <span>Assigned Reg. Nos: <strong>2, 32, 62, 92, L2</strong></span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Quick Links to Repos / Batch Runners -->
+                    <!-- Action Buttons -->
                     <div class="flex flex-col gap-2.5 w-full md:w-auto shrink-0">
+                        <button onclick="switchTab('scenario2')" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg transition">
+                            <i data-lucide="file-check-2" class="w-4 h-4"></i> View Scenario 2 PDF Spec
+                        </button>
                         <button onclick="switchTab('calculator')" class="px-4 py-2.5 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg transition">
                             <i data-lucide="calculator" class="w-4 h-4"></i> Launch Rubric Calculator
-                        </button>
-                        <button onclick="switchTab('visualizations')" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 transition border border-white/20">
-                            <i data-lucide="pie-chart" class="w-4 h-4"></i> View 6 EDA Charts
                         </button>
                     </div>
                 </div>
@@ -166,7 +169,7 @@
                         </div>
                     </div>
                     <div class="text-2xl font-bold mt-2">10</div>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">25IT3A & 25IT3B Cohort</p>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">5 Assigned for Scenario 2</p>
                 </div>
 
                 <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
@@ -259,7 +262,353 @@
         </section>
 
         <!-- =============================================================== -->
-        <!-- TAB 2: STUDENTS & TECHNICAL SKILLS -->
+        <!-- TAB 2: SCENARIO 2 (PDF REQUIREMENTS & ASSIGNED STUDENTS) -->
+        <!-- =============================================================== -->
+        <section id="view-scenario2" class="tab-content hidden space-y-6">
+            <!-- PDF Header Banner -->
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 border-2 border-indigo-500/40 shadow-md space-y-4">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-700 pb-4">
+                    <div>
+                        <div class="text-xs uppercase tracking-wider text-indigo-600 dark:text-indigo-400 font-extrabold">
+                            Official Problem Statement (From Course PDF - Page 2)
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-black mt-1">
+                            Scenario 2: Student Project and Skill Tracking System
+                        </h3>
+                    </div>
+                    <div class="px-3.5 py-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/70 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 font-mono text-xs font-bold">
+                        Register No.: 2, 32, 62, 92, L2
+                    </div>
+                </div>
+
+                <!-- Problem Statement Quote -->
+                <div class="bg-slate-50 dark:bg-slate-900/60 p-5 rounded-xl border-l-4 border-indigo-600 space-y-2">
+                    <div class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Problem Statement</div>
+                    <p class="text-sm font-medium leading-relaxed italic text-slate-700 dark:text-slate-200">
+                        &ldquo;The department wants to maintain records of student mini-projects, technical skills, programming languages, project milestones, and assessment results. Currently, this information is scattered across spreadsheets, making it difficult to monitor project progress and identify common skill gaps.
+                        Develop a Student Project and Skill Tracking System that stores project details, monitors progress, and analyzes students' skills and project completion trends.&rdquo;
+                    </p>
+                </div>
+
+                <!-- 7 Functional Requirements Verbatim from PDF -->
+                <div class="space-y-3 pt-2">
+                    <div class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                        Functional Requirements (Exact from PDF Specification)
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                        <div class="p-3 rounded-lg bg-emerald-50/60 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/50 flex items-start gap-2.5">
+                            <span class="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">1</span>
+                            <div>
+                                <strong class="text-slate-900 dark:text-slate-100">Maintain student details and technical skills.</strong>
+                                <p class="text-[11px] text-emerald-700 dark:text-emerald-400 mt-0.5">Fulfilled in <code class="font-mono">students</code> & <code class="font-mono">student_skills</code> tables + Java DAO</p>
+                            </div>
+                        </div>
+
+                        <div class="p-3 rounded-lg bg-emerald-50/60 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/50 flex items-start gap-2.5">
+                            <span class="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">2</span>
+                            <div>
+                                <strong class="text-slate-900 dark:text-slate-100">Register individual student projects with titles, domains, descriptions, and technologies used.</strong>
+                                <p class="text-[11px] text-emerald-700 dark:text-emerald-400 mt-0.5">Fulfilled in <code class="font-mono">projects</code> table + Java ProjectDAO</p>
+                            </div>
+                        </div>
+
+                        <div class="p-3 rounded-lg bg-emerald-50/60 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/50 flex items-start gap-2.5">
+                            <span class="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">3</span>
+                            <div>
+                                <strong class="text-slate-900 dark:text-slate-100">Record project milestones, submission dates, and completion status.</strong>
+                                <p class="text-[11px] text-emerald-700 dark:text-emerald-400 mt-0.5">Fulfilled in <code class="font-mono">milestones</code> table + delay trigger</p>
+                            </div>
+                        </div>
+
+                        <div class="p-3 rounded-lg bg-emerald-50/60 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/50 flex items-start gap-2.5">
+                            <span class="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">4</span>
+                            <div>
+                                <strong class="text-slate-900 dark:text-slate-100">Maintain evaluation marks for defined project components.</strong>
+                                <p class="text-[11px] text-emerald-700 dark:text-emerald-400 mt-0.5">Fulfilled in <code class="font-mono">evaluations</code> (Survey, Design, Impl, Test, Viva)</p>
+                            </div>
+                        </div>
+
+                        <div class="p-3 rounded-lg bg-emerald-50/60 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/50 flex items-start gap-2.5">
+                            <span class="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">5</span>
+                            <div>
+                                <strong class="text-slate-900 dark:text-slate-100">Generate reports on project progress and student skills.</strong>
+                                <p class="text-[11px] text-emerald-700 dark:text-emerald-400 mt-0.5">Fulfilled via Java 8+ Streams API & groupingBy</p>
+                            </div>
+                        </div>
+
+                        <div class="p-3 rounded-lg bg-emerald-50/60 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/50 flex items-start gap-2.5">
+                            <span class="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">6</span>
+                            <div>
+                                <strong class="text-slate-900 dark:text-slate-100">Retrieve project and skill records from the database for analysis using Python.</strong>
+                                <p class="text-[11px] text-emerald-700 dark:text-emerald-400 mt-0.5">Fulfilled in <code class="font-mono">python/data_analysis.py</code> via sqlite3</p>
+                            </div>
+                        </div>
+
+                        <div class="p-3 rounded-lg bg-emerald-50/60 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/50 flex items-start gap-2.5 md:col-span-2">
+                            <span class="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">7</span>
+                            <div>
+                                <strong class="text-slate-900 dark:text-slate-100">Visualize project completion rates, popular technology choices, and skill distribution.</strong>
+                                <p class="text-[11px] text-emerald-700 dark:text-emerald-400 mt-0.5">Fulfilled with 6 high-res Seaborn/Matplotlib charts saved in <code class="font-mono">visualizations/</code></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- The 5 Assigned Students & Projects Cards -->
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h4 class="text-lg font-bold">Assigned Students for Scenario 2 (Register No.: 2, 32, 62, 92, L2)</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Complete student profiles, individual mini-projects, and technical skill sets matching requirements</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- Student 1: Gokul . S (Reg No: 32) -->
+                    <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border-2 border-blue-500 shadow-md space-y-4 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-blue-600 text-white px-3 py-1 text-[10px] font-bold rounded-bl-xl uppercase tracking-wider">
+                            Author & Lead
+                        </div>
+                        <div class="flex items-start gap-3.5">
+                            <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-lg shrink-0">
+                                GS
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h5 class="text-base font-bold">Gokul . S</h5>
+                                    <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-mono text-xs font-bold">PDF Reg #32</span>
+                                </div>
+                                <div class="text-xs text-slate-500 font-mono mt-0.5">Reg No: 732925ITR032 • Class: 25IT3A</div>
+                                <div class="text-xs text-slate-500">Email: gokul.s@vcet.ac.in</div>
+                            </div>
+                        </div>
+
+                        <!-- Project Section -->
+                        <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[11px] font-bold font-mono text-blue-600 dark:text-blue-400 uppercase">Project #101 • Data Science</span>
+                                <span class="px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-bold text-[10px]">Completed</span>
+                            </div>
+                            <h6 class="text-xs font-bold text-slate-900 dark:text-slate-100">Student Project and Skill Tracking System</h6>
+                            <p class="text-[11px] text-slate-600 dark:text-slate-300">
+                                Centralized academic tracking system consolidating student mini-projects, technical skills, programming languages, project milestones, and assessment results.
+                            </p>
+                            <div class="text-[11px] text-slate-500">
+                                <strong>Technologies Used:</strong> Java, SQLite, Python, Pandas, Matplotlib, Seaborn
+                            </div>
+                            <div class="flex items-center justify-between pt-1 border-t border-slate-200 dark:border-slate-700 text-[11px]">
+                                <span>Milestones: <strong>5/5 Approved</strong></span>
+                                <span class="text-emerald-600 dark:text-emerald-400 font-bold">Evaluation Score: 95.5/100 (Grade O)</span>
+                            </div>
+                        </div>
+
+                        <!-- Technical Skills -->
+                        <div class="space-y-1.5">
+                            <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Technical Skills & Programming Languages</div>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-xs font-semibold">Java (Adv • 3 yrs • Certified)</span>
+                                <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-xs font-semibold">Python (Adv • 2 yrs • Certified)</span>
+                                <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-xs font-semibold">SQL / Relational DB (Adv • 2 yrs • Certified)</span>
+                                <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-xs">Pandas & NumPy (Adv • 2 yrs)</span>
+                                <span class="px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 text-xs">Spring Boot (Int • 1 yr)</span>
+                                <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-xs font-semibold">Git (Adv • 2 yrs • Certified)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Student 2: Aakash . M (Reg No: 2) -->
+                    <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
+                        <div class="flex items-start gap-3.5">
+                            <div class="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center font-bold text-lg shrink-0">
+                                AM
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h5 class="text-base font-bold">Aakash . M</h5>
+                                    <span class="px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-mono text-xs font-bold">PDF Reg #2</span>
+                                </div>
+                                <div class="text-xs text-slate-500 font-mono mt-0.5">Reg No: 732925ITR002 • Class: 25IT3A</div>
+                                <div class="text-xs text-slate-500">Email: aakash.m@vcet.ac.in</div>
+                            </div>
+                        </div>
+
+                        <!-- Project Section -->
+                        <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[11px] font-bold font-mono text-slate-500 uppercase">Project #102 • IoT</span>
+                                <span class="px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-bold text-[10px]">In Progress</span>
+                            </div>
+                            <h6 class="text-xs font-bold text-slate-900 dark:text-slate-100">IoT Smart Agriculture & Soil Irrigation Monitor</h6>
+                            <p class="text-[11px] text-slate-600 dark:text-slate-300">
+                                Low-cost sensor monitoring system measuring soil moisture, humidity, and temperature for automated pump irrigation.
+                            </p>
+                            <div class="text-[11px] text-slate-500">
+                                <strong>Technologies Used:</strong> C++, ESP32, Python, MQTT, SQLite
+                            </div>
+                            <div class="flex items-center justify-between pt-1 border-t border-slate-200 dark:border-slate-700 text-[11px]">
+                                <span>Milestones: <strong>2 Approved • 1 Delayed</strong></span>
+                                <span class="text-blue-600 dark:text-blue-400 font-bold">Evaluation Score: 76.5/100 (Grade A)</span>
+                            </div>
+                        </div>
+
+                        <!-- Technical Skills -->
+                        <div class="space-y-1.5">
+                            <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Technical Skills & Programming Languages</div>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-xs">C++ (Int • 2 yrs)</span>
+                                <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-xs">Python (Int • 1 yr)</span>
+                                <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs">SQL (Beg • 1 yr)</span>
+                                <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs">Git (Int • 1 yr)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Student 3: Kavin . P (Reg No: 62) -->
+                    <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
+                        <div class="flex items-start gap-3.5">
+                            <div class="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center font-bold text-lg shrink-0">
+                                KP
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h5 class="text-base font-bold">Kavin . P</h5>
+                                    <span class="px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-mono text-xs font-bold">PDF Reg #62</span>
+                                </div>
+                                <div class="text-xs text-slate-500 font-mono mt-0.5">Reg No: 732925ITR062 • Class: 25IT3A</div>
+                                <div class="text-xs text-slate-500">Email: kavin.p@vcet.ac.in</div>
+                            </div>
+                        </div>
+
+                        <!-- Project Section -->
+                        <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[11px] font-bold font-mono text-slate-500 uppercase">Project #103 • Machine Learning</span>
+                                <span class="px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-bold text-[10px]">Completed</span>
+                            </div>
+                            <h6 class="text-xs font-bold text-slate-900 dark:text-slate-100">Automated Cancer Diagnosis using Deep Learning</h6>
+                            <p class="text-[11px] text-slate-600 dark:text-slate-300">
+                                Computer vision CNN deep learning classifier trained on biopsy histopathology images for malignant cell cluster identification.
+                            </p>
+                            <div class="text-[11px] text-slate-500">
+                                <strong>Technologies Used:</strong> Python, TensorFlow, OpenCV, Pandas, Flask
+                            </div>
+                            <div class="flex items-center justify-between pt-1 border-t border-slate-200 dark:border-slate-700 text-[11px]">
+                                <span>Milestones: <strong>3/3 Approved</strong></span>
+                                <span class="text-emerald-600 dark:text-emerald-400 font-bold">Evaluation Score: 92.0/100 (Grade O)</span>
+                            </div>
+                        </div>
+
+                        <!-- Technical Skills -->
+                        <div class="space-y-1.5">
+                            <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Technical Skills & Programming Languages</div>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-xs font-semibold">Python (Adv • 2 yrs • Certified)</span>
+                                <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-xs font-semibold">Pandas & NumPy (Adv • 2 yrs • Certified)</span>
+                                <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-xs font-semibold">Scikit-Learn (Adv • 2 yrs • Certified)</span>
+                                <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-xs">TensorFlow / PyTorch (Int • 1 yr)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Student 4: Preethi . S (Reg No: 92) -->
+                    <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
+                        <div class="flex items-start gap-3.5">
+                            <div class="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center font-bold text-lg shrink-0">
+                                PS
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h5 class="text-base font-bold">Preethi . S</h5>
+                                    <span class="px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-mono text-xs font-bold">PDF Reg #92</span>
+                                </div>
+                                <div class="text-xs text-slate-500 font-mono mt-0.5">Reg No: 732925ITR092 • Class: 25IT3B</div>
+                                <div class="text-xs text-slate-500">Email: preethi.s@vcet.ac.in</div>
+                            </div>
+                        </div>
+
+                        <!-- Project Section -->
+                        <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[11px] font-bold font-mono text-slate-500 uppercase">Project #104 • Web Development</span>
+                                <span class="px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-bold text-[10px]">In Progress</span>
+                            </div>
+                            <h6 class="text-xs font-bold text-slate-900 dark:text-slate-100">Secure E-Commerce Microservices Platform</h6>
+                            <p class="text-[11px] text-slate-600 dark:text-slate-300">
+                                High-throughput online shopping platform featuring JWT authentication, product catalog, payment gateway integration, and cart.
+                            </p>
+                            <div class="text-[11px] text-slate-500">
+                                <strong>Technologies Used:</strong> Java, Spring Boot, React.js, MySQL, Docker
+                            </div>
+                            <div class="flex items-center justify-between pt-1 border-t border-slate-200 dark:border-slate-700 text-[11px]">
+                                <span>Milestones: <strong>2 Approved • 1 In-Track</strong></span>
+                                <span class="text-blue-600 dark:text-blue-400 font-bold">Evaluation Score: 85.0/100 (Grade A+)</span>
+                            </div>
+                        </div>
+
+                        <!-- Technical Skills -->
+                        <div class="space-y-1.5">
+                            <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Technical Skills & Programming Languages</div>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-xs font-semibold">Java (Adv • 2 yrs • Certified)</span>
+                                <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-xs font-semibold">JavaScript (Adv • 2 yrs • Certified)</span>
+                                <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-xs">React.js (Adv • 2 yrs)</span>
+                                <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-xs">SQL (Int • 2 yrs)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Student 5: Vignesh . R (Reg No: L2) -->
+                    <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm space-y-4 md:col-span-2">
+                        <div class="flex items-start gap-3.5">
+                            <div class="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center font-bold text-lg shrink-0">
+                                VR
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h5 class="text-base font-bold">Vignesh . R</h5>
+                                    <span class="px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-mono text-xs font-bold">PDF Reg #L2</span>
+                                </div>
+                                <div class="text-xs text-slate-500 font-mono mt-0.5">Reg No: 732925ITL002 • Class: 25IT3B</div>
+                                <div class="text-xs text-slate-500">Email: vignesh.r@vcet.ac.in</div>
+                            </div>
+                        </div>
+
+                        <!-- Project Section -->
+                        <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[11px] font-bold font-mono text-slate-500 uppercase">Project #105 • Cloud Computing</span>
+                                <span class="px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-bold text-[10px]">In Progress</span>
+                            </div>
+                            <h6 class="text-xs font-bold text-slate-900 dark:text-slate-100">Cloud-Native Serverless Log Analyzer</h6>
+                            <p class="text-[11px] text-slate-600 dark:text-slate-300">
+                                Distributed log analysis tool capturing container logs, detecting anomaly surges, and notifying admins via AWS SNS alerts.
+                            </p>
+                            <div class="text-[11px] text-slate-500">
+                                <strong>Technologies Used:</strong> Python, AWS Lambda, Docker, CloudWatch, SQLite
+                            </div>
+                            <div class="flex items-center justify-between pt-1 border-t border-slate-200 dark:border-slate-700 text-[11px]">
+                                <span>Milestones: <strong>1 Approved • 1 In-Track</strong></span>
+                                <span class="text-blue-600 dark:text-blue-400 font-bold">Evaluation Score: 78.0/100 (Grade A)</span>
+                            </div>
+                        </div>
+
+                        <!-- Technical Skills -->
+                        <div class="space-y-1.5">
+                            <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Technical Skills & Programming Languages</div>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-xs">Python (Int • 1 yr)</span>
+                                <span class="px-2 py-0.5 rounded bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 text-xs font-semibold">Docker & Kubernetes (Int • 1 yr • Certified)</span>
+                                <span class="px-2 py-0.5 rounded bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 text-xs font-semibold">AWS Cloud Foundations (Int • 1 yr • Certified)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =============================================================== -->
+        <!-- TAB 3: STUDENTS & TECHNICAL SKILLS -->
         <!-- =============================================================== -->
         <section id="view-students" class="tab-content hidden space-y-6">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -271,6 +620,16 @@
                     <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
                     <input type="text" id="studentSearch" onkeyup="filterStudents()" placeholder="Search student name, reg no, skill..." class="w-full pl-9 pr-3 py-2 text-xs rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
+            </div>
+
+            <!-- Quick Filter Buttons -->
+            <div class="flex items-center gap-2">
+                <button onclick="filterCohort('all')" id="cohort-all" class="cohort-filter-btn px-3 py-1.5 rounded-lg bg-blue-600 text-white font-semibold text-xs transition">
+                    All Students (10)
+                </button>
+                <button onclick="filterCohort('scenario2')" id="cohort-scenario2" class="cohort-filter-btn px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs hover:bg-slate-200 dark:hover:bg-slate-600 transition flex items-center gap-1.5">
+                    <i data-lucide="award" class="w-3.5 h-3.5 text-indigo-500"></i> Scenario 2 Team: Reg 2, 32, 62, 92, L2 (5)
+                </button>
             </div>
 
             <!-- Student Table -->
@@ -288,9 +647,12 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-200 dark:divide-slate-700 font-medium">
-                            <!-- Gokul . S (Featured) -->
-                            <tr class="bg-blue-50/50 dark:bg-blue-950/20 hover:bg-blue-100/40 dark:hover:bg-blue-950/40 transition">
-                                <td class="p-3.5 font-mono font-bold text-blue-600 dark:text-blue-400">732925ITR032</td>
+                            <!-- Gokul . S (Featured - Reg 32) -->
+                            <tr data-scenario="2" class="bg-blue-50/50 dark:bg-blue-950/20 hover:bg-blue-100/40 dark:hover:bg-blue-950/40 transition">
+                                <td class="p-3.5 font-mono font-bold text-blue-600 dark:text-blue-400">
+                                    732925ITR032
+                                    <span class="block text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold">PDF Reg #32</span>
+                                </td>
                                 <td class="p-3.5 font-bold">
                                     Gokul . S
                                     <span class="ml-1 text-[10px] px-1.5 py-0.5 rounded bg-blue-600 text-white font-semibold">Author</span>
@@ -312,9 +674,12 @@
                                 </td>
                             </tr>
 
-                            <!-- Aakash . M -->
-                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
-                                <td class="p-3.5 font-mono font-semibold">732925ITR002</td>
+                            <!-- Aakash . M (Reg 2) -->
+                            <tr data-scenario="2" class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
+                                <td class="p-3.5 font-mono font-semibold">
+                                    732925ITR002
+                                    <span class="block text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold">PDF Reg #2</span>
+                                </td>
                                 <td class="p-3.5 font-semibold">Aakash . M</td>
                                 <td class="p-3.5">25IT3A</td>
                                 <td class="p-3.5 text-slate-500 dark:text-slate-400 font-mono">aakash.m@vcet.ac.in</td>
@@ -329,9 +694,12 @@
                                 <td class="p-3.5"><span class="px-2 py-1 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[10px] font-bold">In Progress</span></td>
                             </tr>
 
-                            <!-- Kavin . P -->
-                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
-                                <td class="p-3.5 font-mono font-semibold">732925ITR062</td>
+                            <!-- Kavin . P (Reg 62) -->
+                            <tr data-scenario="2" class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
+                                <td class="p-3.5 font-mono font-semibold">
+                                    732925ITR062
+                                    <span class="block text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold">PDF Reg #62</span>
+                                </td>
                                 <td class="p-3.5 font-semibold">Kavin . P</td>
                                 <td class="p-3.5">25IT3A</td>
                                 <td class="p-3.5 text-slate-500 dark:text-slate-400 font-mono">kavin.p@vcet.ac.in</td>
@@ -346,9 +714,12 @@
                                 <td class="p-3.5"><span class="px-2 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold">Project Completed</span></td>
                             </tr>
 
-                            <!-- Preethi . S -->
-                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
-                                <td class="p-3.5 font-mono font-semibold">732925ITR092</td>
+                            <!-- Preethi . S (Reg 92) -->
+                            <tr data-scenario="2" class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
+                                <td class="p-3.5 font-mono font-semibold">
+                                    732925ITR092
+                                    <span class="block text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold">PDF Reg #92</span>
+                                </td>
                                 <td class="p-3.5 font-semibold">Preethi . S</td>
                                 <td class="p-3.5">25IT3B</td>
                                 <td class="p-3.5 text-slate-500 dark:text-slate-400 font-mono">preethi.s@vcet.ac.in</td>
@@ -363,9 +734,12 @@
                                 <td class="p-3.5"><span class="px-2 py-1 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[10px] font-bold">In Progress</span></td>
                             </tr>
 
-                            <!-- Vignesh . R -->
-                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
-                                <td class="p-3.5 font-mono font-semibold">732925ITL002</td>
+                            <!-- Vignesh . R (Reg L2) -->
+                            <tr data-scenario="2" class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
+                                <td class="p-3.5 font-mono font-semibold">
+                                    732925ITL002
+                                    <span class="block text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold">PDF Reg #L2</span>
+                                </td>
                                 <td class="p-3.5 font-semibold">Vignesh . R</td>
                                 <td class="p-3.5">25IT3B</td>
                                 <td class="p-3.5 text-slate-500 dark:text-slate-400 font-mono">vignesh.r@vcet.ac.in</td>
@@ -380,7 +754,7 @@
                             </tr>
 
                             <!-- Deepa . V -->
-                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
+                            <tr data-scenario="other" class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
                                 <td class="p-3.5 font-mono font-semibold">732925ITR015</td>
                                 <td class="p-3.5 font-semibold">Deepa . V</td>
                                 <td class="p-3.5">25IT3A</td>
@@ -396,7 +770,7 @@
                             </tr>
 
                             <!-- Harish . K -->
-                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
+                            <tr data-scenario="other" class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
                                 <td class="p-3.5 font-mono font-semibold">732925ITR045</td>
                                 <td class="p-3.5 font-semibold">Harish . K</td>
                                 <td class="p-3.5">25IT3A</td>
@@ -412,7 +786,7 @@
                             </tr>
 
                             <!-- Nithya . B -->
-                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
+                            <tr data-scenario="other" class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
                                 <td class="p-3.5 font-mono font-semibold">732925ITR078</td>
                                 <td class="p-3.5 font-semibold">Nithya . B</td>
                                 <td class="p-3.5">25IT3B</td>
@@ -428,7 +802,7 @@
                             </tr>
 
                             <!-- Pradeep . N -->
-                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
+                            <tr data-scenario="other" class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
                                 <td class="p-3.5 font-mono font-semibold">732925ITR085</td>
                                 <td class="p-3.5 font-semibold">Pradeep . N</td>
                                 <td class="p-3.5">25IT3B</td>
@@ -444,7 +818,7 @@
                             </tr>
 
                             <!-- Sneha . T -->
-                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
+                            <tr data-scenario="other" class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
                                 <td class="p-3.5 font-mono font-semibold">732925ITR105</td>
                                 <td class="p-3.5 font-semibold">Sneha . T</td>
                                 <td class="p-3.5">25IT3B</td>
@@ -465,7 +839,7 @@
         </section>
 
         <!-- =============================================================== -->
-        <!-- TAB 3: PROJECT REGISTRY -->
+        <!-- TAB 4: PROJECT REGISTRY -->
         <!-- =============================================================== -->
         <section id="view-projects" class="tab-content hidden space-y-6">
             <div>
@@ -481,7 +855,7 @@
                         <span class="px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-bold text-xs">Completed</span>
                     </div>
                     <h4 class="text-base font-bold mt-2">Student Project and Skill Tracking System (SPSTS)</h4>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Student: <strong>Gokul . S</strong> (732925ITR032) • 25IT3A</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Student: <strong>Gokul . S</strong> (732925ITR032 • <span class="text-indigo-600 dark:text-indigo-400 font-bold">PDF Reg #32</span>) • 25IT3A</p>
                     <p class="text-xs text-slate-600 dark:text-slate-300 mt-2">
                         Centralized academic tracking system consolidating student mini-projects, skill matrices, milestone monitoring, and EDA visualization.
                     </p>
@@ -505,7 +879,7 @@
                         <span class="px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-bold text-xs">Completed</span>
                     </div>
                     <h4 class="text-base font-bold mt-2">Automated Cancer Diagnosis using Deep Learning</h4>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Student: <strong>Kavin . P</strong> (732925ITR062) • 25IT3A</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Student: <strong>Kavin . P</strong> (732925ITR062 • <span class="text-indigo-600 dark:text-indigo-400 font-bold">PDF Reg #62</span>) • 25IT3A</p>
                     <p class="text-xs text-slate-600 dark:text-slate-300 mt-2">
                         Computer vision CNN classifier trained on biopsy histopathology images for malignant tumor detection.
                     </p>
@@ -528,7 +902,7 @@
                         <span class="px-2.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-bold text-xs">In Progress</span>
                     </div>
                     <h4 class="text-base font-bold mt-2">IoT Smart Agriculture & Soil Irrigation Monitor</h4>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Student: <strong>Aakash . M</strong> (732925ITR002) • 25IT3A</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Student: <strong>Aakash . M</strong> (732925ITR002 • <span class="text-indigo-600 dark:text-indigo-400 font-bold">PDF Reg #2</span>) • 25IT3A</p>
                     <p class="text-xs text-slate-600 dark:text-slate-300 mt-2">
                         Low-cost sensor monitoring system measuring soil moisture, humidity, and temperature for automated pump irrigation.
                     </p>
@@ -550,7 +924,7 @@
                         <span class="px-2.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-bold text-xs">In Progress</span>
                     </div>
                     <h4 class="text-base font-bold mt-2">Secure E-Commerce Microservices Platform</h4>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Student: <strong>Preethi . S</strong> (732925ITR092) • 25IT3B</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Student: <strong>Preethi . S</strong> (732925ITR092 • <span class="text-indigo-600 dark:text-indigo-400 font-bold">PDF Reg #92</span>) • 25IT3B</p>
                     <p class="text-xs text-slate-600 dark:text-slate-300 mt-2">
                         Online shopping platform featuring JWT authentication, product catalog, payment gateway integration, and shopping cart.
                     </p>
@@ -565,11 +939,35 @@
                         <span class="text-blue-600 dark:text-blue-400 font-bold">Grade: A+ (85.0%)</span>
                     </div>
                 </div>
+
+                <!-- Project 105: Cloud Log Analyzer (Reg L2) -->
+                <div class="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm md:col-span-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono font-bold text-slate-500">PROJECT #105 • CLOUD COMPUTING</span>
+                        <span class="px-2.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-bold text-xs">In Progress</span>
+                    </div>
+                    <h4 class="text-base font-bold mt-2">Cloud-Native Serverless Log Analyzer</h4>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Student: <strong>Vignesh . R</strong> (732925ITL002 • <span class="text-indigo-600 dark:text-indigo-400 font-bold">PDF Reg #L2</span>) • 25IT3B</p>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 mt-2">
+                        Distributed log analysis tool capturing container logs, detecting anomaly surges, and notifying admins via AWS SNS alerts.
+                    </p>
+                    <div class="mt-3 flex flex-wrap gap-1.5">
+                        <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-[11px] font-mono">Python</span>
+                        <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-[11px] font-mono">AWS Lambda</span>
+                        <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-[11px] font-mono">Docker</span>
+                        <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-[11px] font-mono">CloudWatch</span>
+                        <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-[11px] font-mono">SQLite</span>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between text-xs">
+                        <span class="text-slate-500">Milestone: <strong>M2 In Progress</strong></span>
+                        <span class="text-blue-600 dark:text-blue-400 font-bold">Grade: A (78.0%)</span>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- =============================================================== -->
-        <!-- TAB 4: MILESTONES TRACKER -->
+        <!-- TAB 5: MILESTONES TRACKER -->
         <!-- =============================================================== -->
         <section id="view-milestones" class="tab-content hidden space-y-6">
             <div>
@@ -659,7 +1057,7 @@
         </section>
 
         <!-- =============================================================== -->
-        <!-- TAB 5: RUBRIC & GRADE CALCULATOR (INTERACTIVE SIMULATOR) -->
+        <!-- TAB 6: RUBRIC & GRADE CALCULATOR (INTERACTIVE SIMULATOR) -->
         <!-- =============================================================== -->
         <section id="view-calculator" class="tab-content hidden space-y-6">
             <div>
@@ -750,7 +1148,7 @@
         </section>
 
         <!-- =============================================================== -->
-        <!-- TAB 6: DATA SCIENCE EDA VISUALIZATIONS -->
+        <!-- TAB 7: DATA SCIENCE EDA VISUALIZATIONS -->
         <!-- =============================================================== -->
         <section id="view-visualizations" class="tab-content hidden space-y-6">
             <div>
@@ -846,7 +1244,7 @@
         </section>
 
         <!-- =============================================================== -->
-        <!-- TAB 7: COURSE DOCUMENTS & REPOSITORY HUB -->
+        <!-- TAB 8: COURSE DOCUMENTS & REPOSITORY HUB -->
         <!-- =============================================================== -->
         <section id="view-docs" class="tab-content hidden space-y-6">
             <div>
@@ -1032,6 +1430,30 @@
                     row.style.display = '';
                 } else {
                     row.style.display = 'none';
+                }
+            });
+        }
+
+        // Cohort Filter (All vs Scenario 2)
+        function filterCohort(type) {
+            document.querySelectorAll('.cohort-filter-btn').forEach(b => {
+                b.className = 'cohort-filter-btn px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs hover:bg-slate-200 dark:hover:bg-slate-600 transition';
+            });
+            const activeBtn = document.getElementById('cohort-' + type);
+            if (activeBtn) {
+                activeBtn.className = 'cohort-filter-btn px-3 py-1.5 rounded-lg bg-blue-600 text-white font-semibold text-xs transition';
+            }
+
+            const rows = document.querySelectorAll('#studentsTable tbody tr');
+            rows.forEach(row => {
+                if (type === 'all') {
+                    row.style.display = '';
+                } else if (type === 'scenario2') {
+                    if (row.getAttribute('data-scenario') === '2') {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
                 }
             });
         }
