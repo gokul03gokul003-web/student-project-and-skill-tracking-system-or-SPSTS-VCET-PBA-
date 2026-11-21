@@ -172,7 +172,25 @@ The Python analytics pipeline processed the relational dataset and produced 6 pu
 
 ---
 
-## 7. STEP-BY-STEP EXECUTION GUIDE
+## 7. SOFTWARE SIZING & LOC METRICS
+
+| Component | Course | Files | Code LOC | Comments | Total Lines |
+|---|:---:|:---:|:---:|:---:|:---:|
+| Java Core & JDBC Backend | `25ITT32` | 21 | **1,912** | 155 | 2,376 |
+| Database & SQL | `25ITT31` | 4 | **441** | 151 | 651 |
+| Python Data Science & EDA | `25ITC31` | 1 | **261** | 33 | 340 |
+| Web Dashboard (HTML5/JS) | UI | 1 | **1,977** | 147 | 2,281 |
+| Software Engg Docs | `25ITT33` | 5 | **686** | 339 | 1,237 |
+| Automation & Scripts | Tooling | 6 | **221** | 15 | 281 |
+| **TOTAL** | **All** | **38** | **5,498** | **840** | **7,166** |
+
+**COCOMO I Estimation (Organic):** KLOC = 5.498 | Effort = 14.37 Person-Months | Duration = 6.88 Months | Team Size ≈ 2 Developers
+
+> For the full file-by-file breakdown and COCOMO derivations, see: [`docs/SOFTWARE_METRICS_AND_LOC.md`](https://github.com/gokul03gokul003-web/student-project-and-skill-tracking-system-or-SPSTS-VCET-PBA-/blob/main/docs/SOFTWARE_METRICS_AND_LOC.md)
+
+---
+
+## 8. STEP-BY-STEP EXECUTION GUIDE
 
 ### Prerequisites
 * **Operating System:** Windows 10/11, macOS, or Linux.
@@ -181,7 +199,7 @@ The Python analytics pipeline processed the relational dataset and produced 6 pu
 
 ---
 
-### 7.1 Running the Java Application
+### 8.1 Running the Java Application
 
 #### Option A: Universal PowerShell Runner (Recommended for PowerShell users)
 In Windows PowerShell:
@@ -212,7 +230,7 @@ java -cp "bin;lib/*" com.vcet.tracking.Main
 
 ---
 
-### 7.2 Running Python Data Analysis & Visualizations
+### 8.2 Running Python Data Analysis & Visualizations
 
 #### Option A: 1-Click Batch Execution (Windows)
 Double-click:
@@ -237,7 +255,7 @@ jupyter notebook python/data_analysis.ipynb
 
 ---
 
-### 7.3 Database Inspection & Rebuilding
+### 8.3 Database Inspection & Rebuilding
 The pre-built SQLite database is located at `database/student_tracking.db`.  
 To rebuild the database from scratch:
 ```bash
@@ -252,7 +270,7 @@ sqlite3 database/student_tracking.db < database/queries.sql
 
 ---
 
-### 7.4 Running the Web Application Dashboard
+### 8.4 Running the Web Application Dashboard
 
 #### Option A: 1-Click Local HTTP Web Server (Recommended)
 Double-click:

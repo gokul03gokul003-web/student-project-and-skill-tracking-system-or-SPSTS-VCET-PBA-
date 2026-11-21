@@ -226,5 +226,32 @@ SPSTS operates as an autonomous, self-contained desktop and data pipeline ecosys
 | FR-6.1 to FR-6.3 | Python EDA & Visualizations | `python/data_analysis.py`, Jupyter Notebook | TC-EDA-01, TC-EDA-02 |
 
 ---
+
+## 7. SOFTWARE SIZING & LOC (LINES OF CODE) METRICS
+
+### 7.1 Source Code Sizing Inventory
+In conformance with Unit 1 (Software Project Estimation) of course **25ITT33: Software Engineering**, the software sizing has been formally measured:
+
+| Curricular Component / Layer | Course | Files | Code LOC | Comment Lines | Blank Lines | Total Lines |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|
+| **Java Core & JDBC Backend** | `25ITT32` | 21 | **1,912** | 155 | 309 | 2,376 |
+| **Relational Database & SQL** | `25ITT31` | 4 | **441** | 151 | 59 | 651 |
+| **Python Data Science & EDA** | `25ITC31` | 1 | **261** | 33 | 46 | 340 |
+| **Web Dashboard (HTML5/JS/CSS)**| UI | 1 | **1,977** | 147 | 157 | 2,281 |
+| **Software Engg Documentation** | `25ITT33` | 5 | **686** | 339 | 212 | 1,237 |
+| **Tooling & Build Automation** | Tooling | 6 | **221** | 15 | 45 | 281 |
+| **TOTAL PROJECT SIZING** | **Integrated** | **38** | **5,498** | **840** | **828** | **7,166** |
+
+### 7.2 COCOMO I Effort & Schedule Estimation (Organic Model)
+* **KLOC:** $5.498 \text{ KLOC}$
+* **Development Effort ($E$):** $E = 2.4 \times (5.498)^{1.05} = \mathbf{14.37 \text{ Person-Months}}$
+* **Development Schedule ($D$):** $D = 2.5 \times (14.37)^{0.38} = \mathbf{6.88 \text{ Months}}$
+* **Average Staffing ($SS$):** $SS = \frac{E}{D} = \frac{14.37}{6.88} = \mathbf{2.09 \text{ Developers}}$
+* **Productivity:** $\mathbf{382.63 \text{ LOC / Person-Month}}$
+* **Comment Density:** $\mathbf{15.28\%}$ (840 comment lines / 5,498 code LOC)
+
+*(For exhaustive file-by-file LOC breakdown, refer to [`docs/SOFTWARE_METRICS_AND_LOC.md`](file:///c:/project%201/docs/SOFTWARE_METRICS_AND_LOC.md)).*
+
+---
 **Approved by:** Gokul . S (Reg. No: 732925ITR032)  
 **Date of Submission:** November 17, 2026
